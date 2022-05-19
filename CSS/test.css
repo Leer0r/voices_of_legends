@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+body .maincontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  height: 100%;
+  width: 100%;
+}
+body .maincontainer .header {
+  width: 100%;
+  background-color: aqua;
+  height: 200px;
+}
+body .maincontainer .middle {
+  width: 100%;
+  background-color: aquamarine;
+  flex: 1 1 auto;
+}
+body .maincontainer .footer {
+  width: 100%;
+  background-color: bisque;
+  flex: 1 1 auto;
+}
