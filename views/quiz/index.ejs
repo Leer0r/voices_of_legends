@@ -1,79 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/ressources/css/quizStyle.css">
-</head>
+<%- include("../global/header.ejs", {cssPath:"/ressources/css/quizStyle.css"}); %>
 
-<body>
-    <div class="background"></div>
-    <div class="mainContainer">
-        <div class="header">
-            <div class="col1"></div>
-            <div class="col2">
-                <div class="line1"></div>
-                <div class="line2"></div>
+    <body>
+        <div class="background"></div>
+        <div class="mainContainer">
+            <div class="header">
+                <div class="col1"></div>
+                <div class="col2">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                </div>
+                <div class="col3"></div>
             </div>
-            <div class="col3"></div>
-        </div>
-        <div class="middle">
-            <div class="gameInfo">
-                <div class="champCounter">
-                    <div class="text">ROUND</div>
-                    <div class="value">2</div>
+            <div class="middle">
+                <div class="gameInfo">
+                    <div class="champCounter">
+                        <div class="text">ROUND</div>
+                        <div class="value">2</div>
+                    </div>
+                    <div class="timer">
+                        <div class="text">TIMER</div>
+                        <div class="value">04:25</div>
+                    </div>
+                    <div class="difficulty">
+                        <div class="text">GAME DIFFICULTY</div>
+                        <div class="value">CLASSIC</div>
+                    </div>
                 </div>
-                <div class="timer">
-                    <div class="text">TIMER</div>
-                    <div class="value">04:25</div>
+                <div class="championSelect">
+                    <div class="goBack"></div>
+                    <div class="currentChampion">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="goNext"></div>
                 </div>
-                <div class="difficulty">
-                    <div class="text">GAME DIFFICULTY</div>
-                    <div class="value">CLASSIC</div>
+                <div class="askChampion">
+                    <div class="playSound button"></div>
+                    <div class="relauch button"></div>
+                    <input type="text" class="championInput">
+                    <div class="hint button">
+                        <div class="text">Aide</div>
+                        <div class="value">
+                            +15s
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="championSelect">
-                <div class="goBack"></div>
-                <div class="currentChampion">
-                    <div class="circle"></div>
-                </div>
-                <div class="goNext"></div>
-            </div>
-            <div class="askChampion">
-                <div class="playSound button"></div>
-                <div class="relauch button"></div>
-                <input type="text" class="championInput">
-                <div class="hint button">
-                    <div class="text">Aide</div>
-                    <div class="value">
-                        +15s
+                <div class="footer">
+                    <div class="championPannel">
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+                        <div class="championCase anonymous"></div>
+
+
                     </div>
                 </div>
             </div>
-            <div class="footer">
-                <div class="championPannel">
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-                    <div class="championCase anonymous"></div>
-
-
-                </div>
-            </div>
-        </div>
-</body>
+    </body>
 
 </html>
