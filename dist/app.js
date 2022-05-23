@@ -14,6 +14,7 @@ app.set("views", path_1.default.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 app.use('/ressources/css', express_1.default.static(path_1.default.join(__dirname, '../ressources/CSS')));
 app.use('/ressources/images', express_1.default.static(path_1.default.join(__dirname, '../ressources/images')));
+app.use('/ressources/js', express_1.default.static(path_1.default.join(__dirname, 'client')));
 app.use("/quiz", quizRouter_1.default);
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
