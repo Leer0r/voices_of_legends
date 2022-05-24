@@ -5,6 +5,20 @@ interface champCase{
     championSound: HTMLAudioElement
     position:number
     response:string
+    championSplash:string
+}
+
+interface dataPath {
+    baseUrl:string
+    splashUrl:string
+    voiceUrl:string
+    patch:string
+    lang:string
+}
+
+interface champions{
+    name:Array<string>
+    id:Array<string>
 }
 
 class quizManager {
@@ -14,17 +28,33 @@ class quizManager {
     userGuess: string | null | undefined
     nbChamToGuess:number
     currentTime:string
+    dataPath:dataPath
+    championArray:champions
+    gameStarted:boolean
     constructor(){
+        this.dataPath = {
+            baseUrl: "https://raw.communitydragon.org",
+            splashUrl: "plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes",
+            voiceUrl:"plugins/rcp-be-lol-game-data/global/fr_fr/v1/champion-choose-vo",
+            patch: "latest",
+            lang: "fr_FR"
+        }
+        this.championArray = {
+            id:[],
+            name:[]
+        }
+        this.gameStarted = false
         this.currentTime = ""
         this.nbChamToGuess = 14
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
-        this.createChampDivs(this.nbChamToGuess);
+        this.getChampInfo()
         this._currentChampSelected = 0;
         this.userGuess = ""
         this.setUserGuess();
         this.setEventListener();
-        this.selectChampion(0);
+        this.focusUserGuess()
+        this.showTime()
     }
 
     public get currentChampSelected() {
@@ -37,9 +67,13 @@ class quizManager {
     }
 
     public selectChampion(champNumber:number) {
+        if(!this.gameStarted){
+            return
+        }
         this.unselectChamp()
         this.currentChampSelected = champNumber;
         this.selectChamp();
+        this.focusUserGuess()
     }
 
     createChampDivs(nb:number) {
@@ -51,15 +85,61 @@ class quizManager {
                 this.selectChampion(i);
             })
             this.setMutationObserver(champDiv);
+            let audio:HTMLAudioElement = new Audio(this.getChampionVoiceUrl(this.championArray.id[i]))
+            audio.muted = false;
+            audio.autoplay = true;
             let champCase:champCase = {
                 championDiv: champDiv,
-                championSound: new Audio("/ressources/audio/test/Pyke_Select.ogg"),
+                championSound: audio,
                 position: i,
-                response: "pyke"
+                response: this.championArray.name[i],
+                championSplash: this.getChampionSplashUrl(this.championArray.id[i])
             }
             this.champDivList.push(champCase);
             this.championPannel?.appendChild(champDiv);
         }
+    }
+
+    private suffle() {
+        let currentIndex = this.championArray.id.length,  randomIndex;
+
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [this.championArray.id[currentIndex], this.championArray.id[randomIndex]] = [
+            this.championArray.id[randomIndex], this.championArray.id[currentIndex]];
+            [this.championArray.name[currentIndex], this.championArray.name[randomIndex]] = [
+                this.championArray.name[randomIndex], this.championArray.name[currentIndex]];
+        }
+    }
+
+    
+
+    getChampInfo() {
+        const url = "http://ddragon.leagueoflegends.com/cdn/12.9.1/data/en_US/champion.json"
+        fetch(url)
+        .then(async (res:Response) => {
+            const response = await res.json();
+            Object.keys(response["data"]).forEach((key,index) => {
+                this.championArray.name.push(response["data"][key]["name"].toLowerCase())
+                this.championArray.id.push(response["data"][key]["key"])
+            })
+            this.suffle()
+            this.createChampDivs(this.nbChamToGuess);
+        })
+    }
+
+    getChampionSplashUrl(champNumber:string) : string{
+        return `${this.dataPath.baseUrl}/${this.dataPath.patch}/${this.dataPath.splashUrl}/${champNumber}/${champNumber}000.jpg`
+    }
+
+    getChampionVoiceUrl(champNumber:string) : string {
+        return `${this.dataPath.baseUrl}/${this.dataPath.patch}/${this.dataPath.voiceUrl}/${champNumber}.ogg`
     }
 
     private setMutationObserver(element:HTMLElement){
@@ -89,20 +169,27 @@ class quizManager {
     }
 
     private unselectChamp() {
-        this.champDivList[this.currentChampSelected].championDiv?.classList.remove("selected");
+        if(!this.gameStarted){
+            return
+        }
+        this.champDivList[this._currentChampSelected].championDiv?.classList.remove("selected");
     }
 
     private selectChamp() {
+        if(!this.gameStarted){
+            return
+        }
         this.champDivList[this.currentChampSelected].championDiv?.classList.add("selected");
     }
 
     private revealChamp() {
-        this.champDivList[this.currentChampSelected].championDiv?.classList.remove("anonymous");
+        const champReveal:HTMLDivElement | null = <HTMLDivElement>this.champDivList[this.currentChampSelected].championDiv
+        champReveal.style.backgroundImage = `url(${this.champDivList[this.currentChampSelected].championSplash})`;
+        champReveal.classList.remove("anonymous");
     }
 
     private checkResponse() {
         if(this.userGuess?.toLowerCase() == this.champDivList[this.currentChampSelected].response){
-            console.log("Yes !");
             this.revealChamp();
             this.goNext();
         }
@@ -116,7 +203,6 @@ class quizManager {
         })
         championInput?.addEventListener("keyup", (ev:KeyboardEvent) => {
             if (ev.key === 'Enter' || ev.keyCode === 13) {
-                console.log("User guess : " + this.userGuess);
                 this.checkResponse();
             }
         })
@@ -143,40 +229,49 @@ class quizManager {
         })
     }
 
+    private setPlayButtonListener() {
+        document.querySelector(".playButton")?.addEventListener("click",(e:Event) => {
+            this.gameStarted = true
+            this.selectChampion(0);
+        })
+    }
+
     private showTime(){
         var date = new Date();
-        var m:number = date.getMinutes(); // 0 - 59
-        var s:number = date.getSeconds(); // 0 - 59
+        var m:number = 0; // 0 - 59
+        var s:number = 1; // 0 - 59
         
-        m = (m < 10) ? 0 + m : m;
-        s = (s < 10) ? 0 + s : s;
+        m = (m < 10) ? 1 + m : m;
+        s = (s < 10) ? 1 + s : s;
         
         var time = m + ":" + s + " ";
         const clock = <HTMLInputElement>document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
-        
+        setTimeout(this.showTime, 1000);
     }
 
     private goNext(){
+        if(!this.gameStarted){
+            return
+        }
         const nextPos = this.currentChampSelected + 1
         if(nextPos >= this.nbChamToGuess){
-            console.log("Select champ : " + this.currentChampSelected);
             this.selectChampion(this.currentChampSelected)
             return
         }
-        console.log("Select champ : " + nextPos);
         this.selectChampion(nextPos)
     }
 
     private goBack(){
+        if(!this.gameStarted){
+            return
+        }
         const nextPos = this.currentChampSelected - 1
         if(nextPos < 0){
-            console.log("Select champ : " + this.currentChampSelected);
             this.selectChampion(this.currentChampSelected)
             return
         }
-        console.log("Select champ : " + nextPos);
         this.selectChampion(nextPos)
     }
 
@@ -185,8 +280,14 @@ class quizManager {
         userGuess.value = "";
     }
 
+    private focusUserGuess(){
+        const userGuess:HTMLInputElement = <HTMLInputElement>document.querySelector(".championInput")
+        userGuess.focus()
+    }
+
     private setEventListener() {
         this.setArrowEventListener()
+        this.setPlayButtonListener()
     }
 }
 

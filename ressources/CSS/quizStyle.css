@@ -121,7 +121,7 @@ body .mainContainer .middle > .askChampion > * {
 html .mainContainer .middle .gameInfo,
 body .mainContainer .middle .gameInfo {
   width: 100%;
-  flex: 1;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,9 +243,33 @@ body .mainContainer .middle .askChampion input {
   border: none;
   font-size: xx-large;
 }
+html .mainContainer .middle .play,
+body .mainContainer .middle .play {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row nowrap;
+}
+html .mainContainer .middle .play .playButton,
+body .mainContainer .middle .play .playButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 50px;
+  background-color: #000000;
+  border-radius: 5%;
+  color: aliceblue;
+}
+html .mainContainer .middle .play .playButton:hover,
+body .mainContainer .middle .play .playButton:hover {
+  cursor: pointer;
+}
 html .mainContainer .footer,
 body .mainContainer .footer {
-  flex: 2;
+  flex: 3;
   width: 100%;
   display: block;
 }
@@ -257,7 +281,6 @@ body .mainContainer .footer .championPannel {
 }
 html .mainContainer .footer .championPannel .championCase,
 body .mainContainer .footer .championPannel .championCase {
-  background-image: url("/ressources/images/league/champions/Pyke/Pyke.jpg");
   background-position: center;
   /* Center the image */
   background-repeat: no-repeat;
