@@ -279,3 +279,11 @@ html .mainContainer .footer .championPannel .anonymous:hover,
 body .mainContainer .footer .championPannel .anonymous:hover {
   background-color: bisque;
 }
+html .mainContainer .footer .championPannel .anonymous.selected,
+body .mainContainer .footer .championPannel .anonymous.selected {
+  background-color: bisque;
+}
+html .mainContainer .footer .championPannel .selected:not(.anonymous),
+body .mainContainer .footer .championPannel .selected:not(.anonymous) {
+  border: 6px solid #2d792d;
+}

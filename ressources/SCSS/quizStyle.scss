@@ -236,6 +236,12 @@ body {
                         background-color: bisque;
                     }
                 }
+                .anonymous.selected {
+                    background-color: bisque;
+                }
+                .selected:not(.anonymous){
+                    border: 6px solid rgb(45, 121, 45);
+                }
             }
         }
     }

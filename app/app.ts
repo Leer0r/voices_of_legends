@@ -15,6 +15,7 @@ app.set( "view engine", "ejs" );
 app.use('/ressources/css', express.static(path.join(__dirname, '../ressources/CSS')));
 app.use('/ressources/images', express.static(path.join(__dirname, '../ressources/images')));
 app.use('/ressources/js', express.static(path.join(__dirname,'client')))
+app.use('/ressources/audio', express.static(path.join(__dirname,'../ressources/sounds')))
 
 app.use("/quiz",quizRouter);
 
