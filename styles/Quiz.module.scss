@@ -1,31 +1,235 @@
-body {
-    background-color: rgb(93, 14, 184);
+$headerColColor: rgb(211, 209, 209);
+$backgroundBlur: blur(3rem);
+
+.container{
+    .background {
+        background-image: url("/ressources/images/league/background/bg_1.jpg");
+        background-position: center;
+        /* Center the image */
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-size: cover;
+        filter: $backgroundBlur;
+        -webkit-filter: $backgroundBlur;
+        -moz-filter: $backgroundBlur;
+        -o-filter: $backgroundBlur;
+        -ms-filter: $backgroundBlur;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+    }
     .mainContainer {
-        .middle {}
-        .footer {
-            position: fixed;
-            height: 300px;
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        .header {
             width: 100%;
-            background-color: beige;
-            bottom: 0;
+            background-color: #000000;
+            border-top: 3px solid rgb(56, 153, 56);
+            flex: 1;
+            display: flex;
+            flex-flow: row nowrap;
+            .col1 {
+                height: 100%;
+                flex: 1;
+            }
+            .col2 {
+                height: 100%;
+                flex: 10;
+                display: flex;
+                flex-flow: column nowrap;
+                .line1 {
+                    flex: 1;
+                    border-bottom: 1px solid $headerColColor;
+                    border-left: 2px solid $headerColColor;
+                    border-right: 2px solid $headerColColor;
+                    width: 100%;
+                }
+                .line2 {
+                    flex: 1;
+                    width: 100%;
+                    border-left: 2px solid $headerColColor;
+                    border-right: 2px solid $headerColColor;
+                }
+            }
+            .col3 {
+                height: 100%;
+                flex: 1;
+            }
+        }
+        .middle {
+            width: 100%;
+            flex: 9;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            &>.gameInfo>* {
+                display: flex;
+                flex-flow: column nowrap;
+                .text {
+                    font-size: large;
+                    font-family: Tahoma;
+                    color: $headerColColor;
+                }
+                .value {
+                    font-size: larger;
+                    font-family: Tahoma, Geneva, Verdana, sans-serif;
+                    color: burlywood;
+                }
+            }
+            &>.championSelect>.goBack,
+            .goNext {
+                color: aliceblue;
+                font-size: 70px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                display: flex;
+                align-items: center;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &>.askChampion>* {
+                border-radius: 2px;
+                background-color: white;
+                margin-right: 20px;
+            }
+            .gameInfo {
+                width: 100%;
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-flow: row nowrap;
+                .champCounter {
+                    height: 100%;
+                    flex: 1;
+                    align-items: flex-end;
+                }
+                .timer {
+                    height: 100%;
+                    flex: 1;
+                    align-items: center;
+                }
+                .difficulty {
+                    height: 100%;
+                    flex: 1;
+                    align-items: flex-start;
+                }
+            }
+            .championSelect {
+                justify-content: center;
+                width: 100%;
+                flex: 3;
+                display: flex;
+                flex-flow: row nowrap;
+                .goBack {
+                    justify-content: flex-end;
+                    &::before {
+                        content: '<';
+                    }
+                }
+                .currentChampion {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .circle {
+                        margin-left: 40px;
+                        margin-right: 40px;
+                        border-radius: 50%;
+                        background-color: rgb(253, 253, 253);
+                        height: 100px;
+                        width: 100px;
+                        background-image: url("/ressources/images/league/other/anonymous.png");
+                        background-position: center;
+                        /* Center the image */
+                        background-repeat: no-repeat;
+                        /* Do not repeat the image */
+                        background-size: 70px;
+                        /* Resize the background image to cover the entire container */
+                    }
+                }
+                .goNext {
+                    justify-content: flex-start;
+                    &::after {
+                        content: '>';
+                    }
+                }
+            }
+            .askChampion {
+                flex: 3;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-flow: row nowrap;
+                .button {
+                    width: 50px;
+                    height: 50px;
+                    border: none;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .playSound {
+                    background-image: url("/ressources/images/league/other/playSound.png");
+                    background-position: center;
+                    /* Center the image */
+                    background-repeat: no-repeat;
+                    /* Do not repeat the image */
+                    background-size: 50%;
+                }
+                .relauch {
+                    background-image: url("/ressources/images/league/other/repeat.png");
+                    background-position: center;
+                    /* Center the image */
+                    background-repeat: no-repeat;
+                    /* Do not repeat the image */
+                    background-size: 50%;
+                }
+                .hint {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: center;
+                    align-items: center;
+                }
+                input {
+                    font-family: Tahoma, Geneva, Verdana, sans-serif;
+                    width: 400px;
+                    height: 50px;
+                    border: none;
+                    font-size: xx-large;
+                }
+            }
+        }
+        .footer {
+            flex: 2;
+            width: 100%;
+            display: block;
             .championPannel {
                 display: flex;
                 flex-flow: row nowrap;
                 height: 100%;
                 .championCase {
-                    background-image: url("/ressources/League/Champion/Pyke/Pyke.jpg");
+                    background-image: url("/ressources/images/league/champions/Pyke/Pyke.jpg");
                     background-position: center;
                     /* Center the image */
                     background-repeat: no-repeat;
                     /* Do not repeat the image */
                     background-size: cover;
                     /* Resize the background image to cover the entire container */
-                    border: 2px solid black;
+                    border-top: 6px solid rgb(45, 121, 45);
                     width: 100%;
                     flex: 1;
                     transition: flex 0.5s;
+                }
+                .anonymous {
+                    background-image: url("/ressources/images/league/other/anonymous_2.png");
+                    background-color: rgb(52, 54, 58);
+                    background-size: 70px;
                     &:hover {
-                        flex: 4;
+                        background-color: bisque;
                     }
                 }
             }
