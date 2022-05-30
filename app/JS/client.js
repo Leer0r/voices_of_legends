@@ -48,9 +48,14 @@ var quizManager = /** @class */ (function () {
             id: [],
             name: []
         };
+        this.timer = {
+            min: 0,
+            sec: 0
+        };
         this.gameStarted = false;
         this.currentTime = "";
         this.nbChamToGuess = 14;
+        this.nbChamRemining = this.nbChamToGuess;
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
         this.getChampInfo();
@@ -59,8 +64,10 @@ var quizManager = /** @class */ (function () {
         this.setUserGuess();
         this.setEventListener();
         this.focusUserGuess();
-        this.showTime();
+        this.lauchTimer();
     }
+    quizManager.prototype.launchGame = function () {
+    };
     Object.defineProperty(quizManager.prototype, "currentChampSelected", {
         get: function () {
             return this._currentChampSelected;
@@ -203,9 +210,20 @@ var quizManager = /** @class */ (function () {
         var _a;
         if (((_a = this.userGuess) === null || _a === void 0 ? void 0 : _a.toLowerCase()) == this.champDivList[this.currentChampSelected].response) {
             this.revealChamp();
+            this.nbChamRemining--;
+            this.checkGameFinish();
             this.goNext();
         }
         this.resetUserGuess();
+    };
+    quizManager.prototype.checkGameFinish = function () {
+        if (this.isGameFinish()) {
+            this.gameStarted = false;
+            alert("finish !");
+        }
+    };
+    quizManager.prototype.isGameFinish = function () {
+        return this.nbChamRemining <= 0;
     };
     quizManager.prototype.setUserGuess = function () {
         var _this = this;
@@ -247,37 +265,56 @@ var quizManager = /** @class */ (function () {
             _this.selectChampion(0);
         });
     };
+    quizManager.prototype.lauchTimer = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.showTime();
+                        return [4 /*yield*/, new Promise(function (r) { return setTimeout(r, 1000); })];
+                    case 1:
+                        _a.sent();
+                        this.lauchTimer();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     quizManager.prototype.showTime = function () {
-        var date = new Date();
-        var m = 0; // 0 - 59
-        var s = 1; // 0 - 59
-        m = (m < 10) ? 1 + m : m;
-        s = (s < 10) ? 1 + s : s;
-        var time = m + ":" + s + " ";
+        if (this.timer.sec >= 60) {
+            this.timer.min++;
+            this.timer.sec = 0;
+        }
+        else {
+            this.timer.sec++;
+        }
+        var time = this.timer.min + ":" + this.timer.sec + " ";
         var clock = document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
-        setTimeout(this.showTime, 1000);
     };
     quizManager.prototype.goNext = function () {
         if (!this.gameStarted) {
             return;
         }
-        var nextPos = this.currentChampSelected + 1;
-        if (nextPos >= this.nbChamToGuess) {
-            this.selectChampion(this.currentChampSelected);
-            return;
+        var nextPos = (((this.currentChampSelected + 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
+        while (!this.isAnonymous(nextPos)) {
+            nextPos = (((nextPos + 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
         }
         this.selectChampion(nextPos);
+    };
+    quizManager.prototype.isAnonymous = function (champPos) {
+        var _a;
+        console.log("anonymous");
+        return (_a = this.champDivList[champPos].championDiv) === null || _a === void 0 ? void 0 : _a.classList.contains("anonymous");
     };
     quizManager.prototype.goBack = function () {
         if (!this.gameStarted) {
             return;
         }
-        var nextPos = this.currentChampSelected - 1;
-        if (nextPos < 0) {
-            this.selectChampion(this.currentChampSelected);
-            return;
+        var nextPos = (((this.currentChampSelected - 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
+        while (!this.isAnonymous(nextPos)) {
+            nextPos = (((nextPos - 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
         }
         this.selectChampion(nextPos);
     };

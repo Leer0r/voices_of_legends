@@ -8,6 +8,11 @@ interface champCase{
     championSplash:string
 }
 
+interface timer{
+    sec:number,
+    min:number
+}
+
 interface dataPath {
     baseUrl:string
     splashUrl:string
@@ -31,6 +36,8 @@ class quizManager {
     dataPath:dataPath
     championArray:champions
     gameStarted:boolean
+    nbChamRemining: number;
+    timer:timer;
     constructor(){
         this.dataPath = {
             baseUrl: "https://raw.communitydragon.org",
@@ -43,9 +50,14 @@ class quizManager {
             id:[],
             name:[]
         }
+        this.timer = {
+            min: 0,
+            sec:0
+        }
         this.gameStarted = false
         this.currentTime = ""
         this.nbChamToGuess = 14
+        this.nbChamRemining = this.nbChamToGuess
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
         this.getChampInfo()
@@ -54,7 +66,11 @@ class quizManager {
         this.setUserGuess();
         this.setEventListener();
         this.focusUserGuess()
-        this.showTime()
+        this.lauchTimer()
+    }
+
+    private launchGame(){
+        
     }
 
     public get currentChampSelected() {
@@ -191,9 +207,22 @@ class quizManager {
     private checkResponse() {
         if(this.userGuess?.toLowerCase() == this.champDivList[this.currentChampSelected].response){
             this.revealChamp();
+            this.nbChamRemining --;
+            this.checkGameFinish();
             this.goNext();
         }
         this.resetUserGuess();
+    }
+
+    private checkGameFinish(){
+        if(this.isGameFinish()){
+            this.gameStarted = false
+            alert("finish !")
+        }
+    }
+
+    private isGameFinish(){
+        return this.nbChamRemining <= 0; 
     }
 
     private setUserGuess() {
@@ -236,41 +265,50 @@ class quizManager {
         })
     }
 
-    private showTime(){
-        var date = new Date();
-        var m:number = 0; // 0 - 59
-        var s:number = 1; // 0 - 59
+    private async lauchTimer(){
+        this.showTime()
+        await new Promise(r => setTimeout(r, 1000));
+        this.lauchTimer()
+    }
+
+    private showTime(){        
+        if(this.timer.sec >= 60) {
+            this.timer.min ++
+            this.timer.sec = 0
+        }
+        else {
+            this.timer.sec ++
+        }
         
-        m = (m < 10) ? 1 + m : m;
-        s = (s < 10) ? 1 + s : s;
-        
-        var time = m + ":" + s + " ";
+        var time = this.timer.min + ":" + this.timer.sec + " ";
         const clock = <HTMLInputElement>document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
-        setTimeout(this.showTime, 1000);
     }
 
     private goNext(){
         if(!this.gameStarted){
             return
         }
-        const nextPos = this.currentChampSelected + 1
-        if(nextPos >= this.nbChamToGuess){
-            this.selectChampion(this.currentChampSelected)
-            return
+        let nextPos = (((this.currentChampSelected + 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
+        while(!this.isAnonymous(nextPos)){
+            nextPos = (((nextPos + 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
         }
         this.selectChampion(nextPos)
+    }
+
+    private isAnonymous(champPos:number){
+        console.log("anonymous")
+        return this.champDivList[champPos].championDiv?.classList.contains("anonymous");
     }
 
     private goBack(){
         if(!this.gameStarted){
             return
         }
-        const nextPos = this.currentChampSelected - 1
-        if(nextPos < 0){
-            this.selectChampion(this.currentChampSelected)
-            return
+        let nextPos:number = (((this.currentChampSelected - 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
+        while(!this.isAnonymous(nextPos)){
+            nextPos = (((nextPos - 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
         }
         this.selectChampion(nextPos)
     }

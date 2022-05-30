@@ -22,9 +22,14 @@ class quizManager {
             id: [],
             name: []
         };
+        this.timer = {
+            min: 0,
+            sec: 0
+        };
         this.gameStarted = false;
         this.currentTime = "";
         this.nbChamToGuess = 14;
+        this.nbChamRemining = this.nbChamToGuess;
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
         this.getChampInfo();
@@ -33,7 +38,9 @@ class quizManager {
         this.setUserGuess();
         this.setEventListener();
         this.focusUserGuess();
-        this.showTime();
+        this.lauchTimer();
+    }
+    launchGame() {
     }
     get currentChampSelected() {
         return this._currentChampSelected;
@@ -157,9 +164,20 @@ class quizManager {
         var _a;
         if (((_a = this.userGuess) === null || _a === void 0 ? void 0 : _a.toLowerCase()) == this.champDivList[this.currentChampSelected].response) {
             this.revealChamp();
+            this.nbChamRemining--;
+            this.checkGameFinish();
             this.goNext();
         }
         this.resetUserGuess();
+    }
+    checkGameFinish() {
+        if (this.isGameFinish()) {
+            this.gameStarted = false;
+            alert("finish !");
+        }
+    }
+    isGameFinish() {
+        return this.nbChamRemining <= 0;
     }
     setUserGuess() {
         const championInput = document.querySelector(".championInput");
@@ -198,37 +216,48 @@ class quizManager {
             this.selectChampion(0);
         });
     }
+    lauchTimer() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.showTime();
+            yield new Promise(r => setTimeout(r, 1000));
+            this.lauchTimer();
+        });
+    }
     showTime() {
-        var date = new Date();
-        var m = 0; // 0 - 59
-        var s = 1; // 0 - 59
-        m = (m < 10) ? 1 + m : m;
-        s = (s < 10) ? 1 + s : s;
-        var time = m + ":" + s + " ";
+        if (this.timer.sec >= 60) {
+            this.timer.min++;
+            this.timer.sec = 0;
+        }
+        else {
+            this.timer.sec++;
+        }
+        var time = this.timer.min + ":" + this.timer.sec + " ";
         const clock = document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
-        setTimeout(this.showTime, 1000);
     }
     goNext() {
         if (!this.gameStarted) {
             return;
         }
-        const nextPos = this.currentChampSelected + 1;
-        if (nextPos >= this.nbChamToGuess) {
-            this.selectChampion(this.currentChampSelected);
-            return;
+        let nextPos = (((this.currentChampSelected + 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
+        while (!this.isAnonymous(nextPos)) {
+            nextPos = (((nextPos + 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
         }
         this.selectChampion(nextPos);
+    }
+    isAnonymous(champPos) {
+        var _a;
+        console.log("anonymous");
+        return (_a = this.champDivList[champPos].championDiv) === null || _a === void 0 ? void 0 : _a.classList.contains("anonymous");
     }
     goBack() {
         if (!this.gameStarted) {
             return;
         }
-        const nextPos = this.currentChampSelected - 1;
-        if (nextPos < 0) {
-            this.selectChampion(this.currentChampSelected);
-            return;
+        let nextPos = (((this.currentChampSelected - 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
+        while (!this.isAnonymous(nextPos)) {
+            nextPos = (((nextPos - 1) % this.nbChamToGuess) + this.nbChamToGuess) % this.nbChamToGuess;
         }
         this.selectChampion(nextPos);
     }
