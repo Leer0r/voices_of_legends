@@ -69,10 +69,6 @@ class quizManager {
         this.lauchTimer()
     }
 
-    private launchGame(){
-        
-    }
-
     public get currentChampSelected() {
         return this._currentChampSelected;
     }

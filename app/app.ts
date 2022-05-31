@@ -20,7 +20,7 @@ app.use('/ressources/audio', express.static(path.join(__dirname,'../ressources/s
 app.use("/quiz",quizRouter);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+  res.render("mainPage/mainPage.ejs")
 });
 
 app.listen(port, () => {

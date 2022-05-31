@@ -40,8 +40,6 @@ class quizManager {
         this.focusUserGuess();
         this.lauchTimer();
     }
-    launchGame() {
-    }
     get currentChampSelected() {
         return this._currentChampSelected;
     }

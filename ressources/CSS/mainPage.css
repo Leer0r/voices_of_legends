@@ -1,0 +1,125 @@
+html,
+body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: "Courier New", Courier, monospace;
+}
+html .mainContainer,
+body .mainContainer {
+  color: #9AAFB4;
+  background-image: url("/ressources/images/league/background/mainPage.jpg");
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+html .mainContainer .header,
+body .mainContainer .header {
+  width: 100%;
+  background-color: #000000;
+  border-top: 3px solid #389938;
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+}
+html .mainContainer .header .col1,
+body .mainContainer .header .col1 {
+  height: 100%;
+  flex: 1;
+}
+html .mainContainer .header .col2,
+body .mainContainer .header .col2 {
+  height: 100%;
+  flex: 10;
+  display: flex;
+  flex-flow: column nowrap;
+}
+html .mainContainer .header .col2 .line1,
+body .mainContainer .header .col2 .line1 {
+  flex: 1;
+  border-bottom: 1px solid #d3d1d1;
+  border-left: 2px solid #d3d1d1;
+  border-right: 2px solid #d3d1d1;
+  width: 100%;
+}
+html .mainContainer .header .col2 .line2,
+body .mainContainer .header .col2 .line2 {
+  flex: 1;
+  width: 100%;
+  border-left: 2px solid #d3d1d1;
+  border-right: 2px solid #d3d1d1;
+}
+html .mainContainer .header .col3,
+body .mainContainer .header .col3 {
+  height: 100%;
+  flex: 1;
+}
+html .mainContainer .middle,
+body .mainContainer .middle {
+  width: 100%;
+  flex: 9;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+html .mainContainer .middle .title,
+body .mainContainer .middle .title {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: xx-large;
+}
+html .mainContainer .middle .levelParameter,
+body .mainContainer .middle .levelParameter {
+  flex: 6;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+html .mainContainer .middle .lauchContainer,
+body .mainContainer .middle .lauchContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+html .mainContainer .middle .lauchContainer .leagueButton,
+body .mainContainer .middle .lauchContainer .leagueButton {
+  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/lol_icon.png");
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+}
+html .mainContainer .middle .lauchContainer .lauchGame,
+body .mainContainer .middle .lauchContainer .lauchGame {
+  flex: 1;
+  width: 150px;
+  height: 50px;
+  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/play-button-default.png");
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+html .mainContainer .bottom,
+body .mainContainer .bottom {
+  flex: 3;
+  width: 100%;
+}

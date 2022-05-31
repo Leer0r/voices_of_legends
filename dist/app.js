@@ -18,7 +18,7 @@ app.use('/ressources/js', express_1.default.static(path_1.default.join(__dirname
 app.use('/ressources/audio', express_1.default.static(path_1.default.join(__dirname, '../ressources/sounds')));
 app.use("/quiz", quizRouter_1.default);
 app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server');
+    res.render("mainPage/mainPage.ejs");
 });
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
