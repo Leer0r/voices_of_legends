@@ -1,3 +1,17 @@
+@charset "UTF-8";
+html,
+body {
+  -moz-user-select: none;
+  /* Firefox */
+  -webkit-user-select: none;
+  /* Chrome, Safari, Opéra depuis la version 15 */
+  -ms-user-select: none;
+  /* Internet explorer depuis la version 10 et Edge */
+  user-select: none;
+  /* Propriété standard */
+  cursor: url("/ressources/images/league/other/cursor/hover_precise.png"), auto;
+}
+
 html,
 body {
   border: 0;
@@ -8,8 +22,9 @@ body {
 }
 html .mainContainer,
 body .mainContainer {
+  z-index: -2;
   color: #9AAFB4;
-  background-image: url("/ressources/images/league/background/mainPage.jpg");
+  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/npe-ft-league-button-bg.png");
   background-position: center;
   /* Center the image */
   background-repeat: no-repeat;
@@ -80,10 +95,61 @@ body .mainContainer .middle .title {
 }
 html .mainContainer .middle .levelParameter,
 body .mainContainer .middle .levelParameter {
-  flex: 6;
+  flex: 1;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+}
+html .mainContainer .middle .userBanner,
+body .mainContainer .middle .userBanner {
+  flex: 5;
+  display: flex;
+  justify-content: center;
+}
+html .mainContainer .middle .userBanner .userBackBanner,
+body .mainContainer .middle .userBanner .userBackBanner {
+  height: 400px;
+  width: 200px;
+  position: fixed;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/current-player-banner.png");
+}
+html .mainContainer .middle .userBanner .userLevelRing,
+body .mainContainer .middle .userBanner .userLevelRing {
+  z-index: 2;
+  position: fixed;
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  background-image: url("https://raw.communitydragon.org/pbe/plugins/rcp-fe-lol-static-assets/global/default/images/uikit/themed-level-ring/theme-10-solid-border.png");
+}
+html .mainContainer .middle .userBanner .userProfileIcon,
+body .mainContainer .middle .userBanner .userProfileIcon {
+  z-index: 1;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/4221.jpg");
+  height: 84px;
+  width: 84px;
+  border-radius: 50%;
+  margin-top: 33px;
+}
+html .mainContainer .middle .userBanner .userLevel,
+body .mainContainer .middle .userBanner .userLevel {
+  z-index: 2;
+  margin-top: 112px;
+  position: fixed;
 }
 html .mainContainer .middle .lauchContainer,
 body .mainContainer .middle .lauchContainer {
@@ -91,23 +157,12 @@ body .mainContainer .middle .lauchContainer {
   flex-flow: row nowrap;
   align-items: center;
 }
-html .mainContainer .middle .lauchContainer .leagueButton,
-body .mainContainer .middle .lauchContainer .leagueButton {
-  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/lol_icon.png");
-  background-position: center;
-  /* Center the image */
-  background-repeat: no-repeat;
-  /* Do not repeat the image */
-  background-size: cover;
-  width: 30px;
-  height: 30px;
-}
 html .mainContainer .middle .lauchContainer .lauchGame,
 body .mainContainer .middle .lauchContainer .lauchGame {
   flex: 1;
   width: 150px;
   height: 50px;
-  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/play-button-default.png");
+  background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/button-accept-default.png");
   background-position: center;
   /* Center the image */
   background-repeat: no-repeat;
@@ -116,7 +171,7 @@ body .mainContainer .middle .lauchContainer .lauchGame {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: url("/ressources/images/league/other/cursor/hover_ally_precise.png"), auto;
 }
 html .mainContainer .bottom,
 body .mainContainer .bottom {

@@ -17,6 +17,11 @@ const quizRouterAPI_1 = __importDefault(require("./quizRouterAPI"));
 const router = (0, express_1.Router)();
 router.use("/api", quizRouterAPI_1.default);
 router.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.render("quiz/index.ejs");
+    let difficulty = req.cookies.difficulty;
+    console.log(difficulty);
+    if (!["facile", "moyen", "difficile"].includes(difficulty)) {
+        difficulty = "facile";
+    }
+    res.render("quiz/index.ejs", { difficulty: difficulty });
 }));
 exports.default = router;

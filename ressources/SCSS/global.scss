@@ -1,0 +1,12 @@
+$defaultCursor: url("/ressources/images/league/other/cursor/hover_precise.png");
+$hoverCursor: url("/ressources/images/league/other/cursor/hover_ally_precise.png");
+
+html,
+body{
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
+    -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
+    user-select: none; /* Propriété standard */
+    cursor: $defaultCursor, auto;
+    font-family: 'Courier New', Courier, monospace;
+}

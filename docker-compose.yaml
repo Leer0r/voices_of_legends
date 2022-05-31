@@ -1,0 +1,6 @@
+version: '3'
+services:
+  voices_of_legends:
+    image: leer0r/voices_of_legends
+    ports:
+      - 11001:3000

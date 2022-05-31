@@ -1,3 +1,18 @@
+@charset "UTF-8";
+html,
+body {
+  -moz-user-select: none;
+  /* Firefox */
+  -webkit-user-select: none;
+  /* Chrome, Safari, Opéra depuis la version 15 */
+  -ms-user-select: none;
+  /* Internet explorer depuis la version 10 et Edge */
+  user-select: none;
+  /* Propriété standard */
+  cursor: url("/ressources/images/league/other/cursor/hover_precise.png"), auto;
+  font-family: "Courier New", Courier, monospace;
+}
+
 html,
 body {
   border: 0;
@@ -87,13 +102,11 @@ body .mainContainer .middle > .gameInfo > * {
 html .mainContainer .middle > .gameInfo > * .text,
 body .mainContainer .middle > .gameInfo > * .text {
   font-size: large;
-  font-family: Tahoma;
   color: #d3d1d1;
 }
 html .mainContainer .middle > .gameInfo > * .value,
 body .mainContainer .middle > .gameInfo > * .value {
   font-size: larger;
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
   color: burlywood;
 }
 html .mainContainer .middle > .championSelect > .goBack,
@@ -102,7 +115,6 @@ body .mainContainer .middle > .championSelect > .goBack,
 body .mainContainer .middle .goNext {
   color: aliceblue;
   font-size: 70px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   align-items: center;
 }
@@ -229,7 +241,6 @@ body .mainContainer .middle .askChampion .relauch {
 }
 html .mainContainer .middle .askChampion .hint,
 body .mainContainer .middle .askChampion .hint {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -237,35 +248,17 @@ body .mainContainer .middle .askChampion .hint {
 }
 html .mainContainer .middle .askChampion input,
 body .mainContainer .middle .askChampion input {
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
   width: 400px;
   height: 50px;
   border: none;
   font-size: xx-large;
 }
-html .mainContainer .middle .play,
-body .mainContainer .middle .play {
-  display: flex;
-  width: 100%;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  flex-flow: row nowrap;
-}
-html .mainContainer .middle .play .playButton,
-body .mainContainer .middle .play .playButton {
+html .mainContainer .middle .champHint,
+body .mainContainer .middle .champHint {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 300px;
-  height: 50px;
-  background-color: #000000;
-  border-radius: 5%;
-  color: aliceblue;
-}
-html .mainContainer .middle .play .playButton:hover,
-body .mainContainer .middle .play .playButton:hover {
-  cursor: pointer;
+  flex-flow: column nowrap;
+  color: bisque;
 }
 html .mainContainer .footer,
 body .mainContainer .footer {

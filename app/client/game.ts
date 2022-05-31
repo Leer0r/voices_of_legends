@@ -6,6 +6,7 @@ interface champCase{
     position:number
     response:string
     championSplash:string
+    championHint:string
 }
 
 interface timer{
@@ -24,6 +25,7 @@ interface dataPath {
 interface champions{
     name:Array<string>
     id:Array<string>
+    hint: Array<string>
 }
 
 class quizManager {
@@ -38,21 +40,26 @@ class quizManager {
     gameStarted:boolean
     nbChamRemining: number;
     timer:timer;
+    champHint:HTMLDivElement;
+    difficulty:string
     constructor(){
-        this.dataPath = {
-            baseUrl: "https://raw.communitydragon.org",
-            splashUrl: "plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes",
-            voiceUrl:"plugins/rcp-be-lol-game-data/global/fr_fr/v1/champion-choose-vo",
-            patch: "latest",
-            lang: "fr_FR"
-        }
         this.championArray = {
             id:[],
-            name:[]
+            name:[],
+            hint:[]
         }
         this.timer = {
             min: 0,
             sec:0
+        }
+        this.difficulty = ""
+        this.setDifficulty()
+        this.dataPath = {
+            baseUrl: "https://raw.communitydragon.org",
+            splashUrl: "plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes",
+            voiceUrl:`plugins/rcp-be-lol-game-data/global/fr_fr/v1/${this.getCurrentDifficulty()}`,
+            patch: "latest",
+            lang: "fr_FR"
         }
         this.gameStarted = false
         this.currentTime = ""
@@ -60,13 +67,13 @@ class quizManager {
         this.nbChamRemining = this.nbChamToGuess
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
-        this.getChampInfo()
         this._currentChampSelected = 0;
         this.userGuess = ""
+        this.champHint = <HTMLDivElement>document.querySelector(".champHint")
         this.setUserGuess();
         this.setEventListener();
         this.focusUserGuess()
-        this.lauchTimer()
+        this.getChampInfo()
     }
 
     public get currentChampSelected() {
@@ -88,6 +95,21 @@ class quizManager {
         this.focusUserGuess()
     }
 
+    private setDifficulty(){
+        const difficulty:HTMLDivElement = <HTMLDivElement>document.querySelector(".difficulty .value")
+        this.difficulty = difficulty.innerText
+    }
+    getCurrentDifficulty(){
+        switch (this.difficulty) {
+            case "facile":
+                return "champion-choose-vo"
+            case "moyen":
+                return "champion-ban-vo"
+            default:
+                return "champion-ban-vo";
+        }
+    }
+
     createChampDivs(nb:number) {
         for(let i:number = 0; i < nb; i++) {
             let champDiv = document.createElement("div");
@@ -99,13 +121,14 @@ class quizManager {
             this.setMutationObserver(champDiv);
             let audio:HTMLAudioElement = new Audio(this.getChampionVoiceUrl(this.championArray.id[i]))
             audio.muted = false;
-            audio.autoplay = true;
+            audio.autoplay = false;
             let champCase:champCase = {
                 championDiv: champDiv,
                 championSound: audio,
                 position: i,
                 response: this.championArray.name[i],
-                championSplash: this.getChampionSplashUrl(this.championArray.id[i])
+                championSplash: this.getChampionSplashUrl(this.championArray.id[i]),
+                championHint: this.championArray.hint[i]
             }
             this.champDivList.push(champCase);
             this.championPannel?.appendChild(champDiv);
@@ -127,23 +150,37 @@ class quizManager {
             this.championArray.id[randomIndex], this.championArray.id[currentIndex]];
             [this.championArray.name[currentIndex], this.championArray.name[randomIndex]] = [
                 this.championArray.name[randomIndex], this.championArray.name[currentIndex]];
+            [this.championArray.hint[currentIndex], this.championArray.hint[randomIndex]] = [
+                this.championArray.hint[randomIndex], this.championArray.hint[currentIndex]];
         }
     }
 
     
 
     getChampInfo() {
-        const url = "http://ddragon.leagueoflegends.com/cdn/12.9.1/data/en_US/champion.json"
+        const url = "http://ddragon.leagueoflegends.com/cdn/12.9.1/data/fr_FR/champion.json"
         fetch(url)
         .then(async (res:Response) => {
             const response = await res.json();
             Object.keys(response["data"]).forEach((key,index) => {
                 this.championArray.name.push(response["data"][key]["name"].toLowerCase())
                 this.championArray.id.push(response["data"][key]["key"])
+                this.championArray.hint.push(response["data"][key]["title"])
             })
             this.suffle()
             this.createChampDivs(this.nbChamToGuess);
+            this.gameStarted = true
+            this.selectChampion(0);
+            this.lauchTimer()
         })
+    }
+
+    private displayChampHint(){
+        this.champHint.innerText = this.champDivList[this.currentChampSelected].championHint
+    }
+
+    private resetChampHint(){
+        this.champHint.innerText = ""
     }
 
     getChampionSplashUrl(champNumber:string) : string{
@@ -213,7 +250,7 @@ class quizManager {
     private checkGameFinish(){
         if(this.isGameFinish()){
             this.gameStarted = false
-            alert("finish !")
+            alert(`Fini en ${this.timer.min} min et ${this.timer.sec} sec ! Si tu veut rejouer retourne sur la page d'acceuil`)
         }
     }
 
@@ -254,14 +291,22 @@ class quizManager {
         })
     }
 
-    private setPlayButtonListener() {
-        document.querySelector(".playButton")?.addEventListener("click",(e:Event) => {
-            this.gameStarted = true
-            this.selectChampion(0);
+    private setChampionHintEventListener(){
+        document.querySelector(".hint")?.addEventListener("click", () => {
+            this.displayChampHint();
+        })
+    }
+
+    private setRedoSongEventListener(){
+        document.querySelector(".relauch")?.addEventListener("click", () => {
+            this.playChampSound()
         })
     }
 
     private async lauchTimer(){
+        if(!this.gameStarted){
+            return
+        }
         this.showTime()
         await new Promise(r => setTimeout(r, 1000));
         this.lauchTimer()
@@ -276,7 +321,7 @@ class quizManager {
             this.timer.sec ++
         }
         
-        var time = this.timer.min + ":" + this.timer.sec + " ";
+        var time = `${this.timer.min < 10 ? "0" : ""}${this.timer.min}:${this.timer.sec < 10 ? "0" : ""}${this.timer.sec}`;
         const clock = <HTMLInputElement>document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
@@ -286,6 +331,7 @@ class quizManager {
         if(!this.gameStarted){
             return
         }
+        this.resetChampHint()
         let nextPos = (((this.currentChampSelected + 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
         while(!this.isAnonymous(nextPos)){
             nextPos = (((nextPos + 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
@@ -294,7 +340,6 @@ class quizManager {
     }
 
     private isAnonymous(champPos:number){
-        console.log("anonymous")
         return this.champDivList[champPos].championDiv?.classList.contains("anonymous");
     }
 
@@ -302,6 +347,7 @@ class quizManager {
         if(!this.gameStarted){
             return
         }
+        this.resetChampHint()
         let nextPos:number = (((this.currentChampSelected - 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
         while(!this.isAnonymous(nextPos)){
             nextPos = (((nextPos - 1) % this.nbChamToGuess ) + this.nbChamToGuess ) % this.nbChamToGuess;
@@ -321,7 +367,9 @@ class quizManager {
 
     private setEventListener() {
         this.setArrowEventListener()
-        this.setPlayButtonListener()
+        //this.setPlayButtonListener()
+        this.setChampionHintEventListener()
+        this.setRedoSongEventListener()
     }
 }
 
