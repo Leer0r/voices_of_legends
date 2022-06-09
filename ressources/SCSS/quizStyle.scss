@@ -1,5 +1,4 @@
 @import './global.scss';
-
 $headerColColor: rgb(211, 209, 209);
 $backgroundBlur: blur(3rem);
 html,
@@ -203,7 +202,7 @@ body {
                     font-size: xx-large;
                 }
             }
-            .champHint{
+            .champHint {
                 display: flex;
                 align-items: center;
                 flex-flow: column nowrap;
@@ -241,7 +240,7 @@ body {
                 .anonymous.selected {
                     background-color: bisque;
                 }
-                .selected:not(.anonymous){
+                .selected:not(.anonymous) {
                     border: 6px solid rgb(45, 121, 45);
                 }
             }

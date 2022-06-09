@@ -10,6 +10,7 @@ const levelParmeterString:any = [
     "difficile"
 ]
 
+
 function setLevelParameterEventListener(){
     let levelParameter:HTMLSelectElement = <HTMLSelectElement>document.querySelector(".levelParameter")
     levelParameter.addEventListener('change', (ev:Event) => {
@@ -29,9 +30,22 @@ function setPlayButtonEventListener(){
     })
 }
 
+function displayPopup(title:string,content:string){
+    popupTitle.innerText = title
+    popupContent.innerText = content
+    popupContainer.style.display = "flex"
+}
+
+function setHelpEventListener(){
+    document.querySelector(".mainContainer .middle .help")?.addEventListener("click", () => {
+        displayPopup("test","SVP marche")
+    })
+}
+
 function setEventListener(){
     setLevelParameterEventListener()
     setPlayButtonEventListener()
+    setHelpEventListener()
 }
 
 setEventListener()

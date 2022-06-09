@@ -26,8 +26,20 @@ function setPlayButtonEventListener() {
         window.location.href = "http://voices_of_legends.games.coffeebreaks.eu/quiz";
     });
 }
+function displayPopup(title, content) {
+    popupTitle.innerText = title;
+    popupContent.innerText = content;
+    popupContainer.style.display = "flex";
+}
+function setHelpEventListener() {
+    var _a;
+    (_a = document.querySelector(".mainContainer .middle .help")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        displayPopup("test", "SVP marche");
+    });
+}
 function setEventListener() {
     setLevelParameterEventListener();
     setPlayButtonEventListener();
+    setHelpEventListener();
 }
 setEventListener();

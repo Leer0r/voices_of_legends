@@ -10,6 +10,63 @@ body {
   user-select: none;
   /* Propriété standard */
   cursor: url("/ressources/images/league/other/cursor/hover_precise.png"), auto;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif, Courier, monospace;
+}
+html *,
+body * {
+  color: #8d8112;
+}
+html .hoverable,
+body .hoverable {
+  cursor: url("/ressources/images/league/other/cursor/hover_ally_precise.png"), auto;
+}
+html .popupContainer,
+body .popupContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+}
+html .popupContainer .popup,
+body .popupContainer .popup {
+  width: 50%;
+  height: 30%;
+  background-color: aliceblue;
+  z-index: 100;
+  border: 1px solid #8d8112;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: column nowrap;
+  background-color: #202022;
+  display: flex;
+}
+html .popupContainer .popup > *,
+body .popupContainer .popup > * {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html .popupContainer .popup .title,
+body .popupContainer .popup .title {
+  flex: 1;
+}
+html .popupContainer .popup .content,
+body .popupContainer .popup .content {
+  flex: 3;
+}
+html .popupContainer .popup .quitButton,
+body .popupContainer .popup .quitButton {
+  flex: 1;
+  width: 30%;
+  border: 2px solid #8d8112;
+  margin-bottom: 10px;
 }
 
 html,
@@ -18,7 +75,6 @@ body {
   padding: 0;
   margin: 0;
   height: 100%;
-  font-family: "Courier New", Courier, monospace;
 }
 html .mainContainer,
 body .mainContainer {
@@ -38,43 +94,63 @@ body .mainContainer {
 html .mainContainer .header,
 body .mainContainer .header {
   width: 100%;
-  background-color: #000000;
-  border-top: 3px solid #389938;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid #8d8112;
+  border-bottom: 1px solid gray;
   flex: 1;
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-around;
 }
-html .mainContainer .header .col1,
-body .mainContainer .header .col1 {
-  height: 100%;
-  flex: 1;
+html .mainContainer .header .leftContainer,
+body .mainContainer .header .leftContainer {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  align-items: center;
 }
-html .mainContainer .header .col2,
-body .mainContainer .header .col2 {
+html .mainContainer .header .leftContainer > *,
+body .mainContainer .header .leftContainer > * {
   height: 100%;
-  flex: 10;
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html .mainContainer .header .leftContainer .gameSelect,
+body .mainContainer .header .leftContainer .gameSelect {
+  transition: border-bottom 1s;
+}
+html .mainContainer .header .leftContainer .gameSelect:hover,
+body .mainContainer .header .leftContainer .gameSelect:hover {
+  border-bottom: 5px solid #8d8112;
+}
+html .mainContainer .header .leftContainer .selected,
+body .mainContainer .header .leftContainer .selected {
+  border-bottom: 5px solid #796f14;
+}
+html .mainContainer .header .centerContainer,
+body .mainContainer .header .centerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+html .mainContainer .header .centerContainer .title,
+body .mainContainer .header .centerContainer .title {
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
+  font-size: xx-large;
 }
-html .mainContainer .header .col2 .line1,
-body .mainContainer .header .col2 .line1 {
-  flex: 1;
-  border-bottom: 1px solid #d3d1d1;
-  border-left: 2px solid #d3d1d1;
-  border-right: 2px solid #d3d1d1;
+html .mainContainer .header .rightContainer,
+body .mainContainer .header .rightContainer {
   width: 100%;
-}
-html .mainContainer .header .col2 .line2,
-body .mainContainer .header .col2 .line2 {
-  flex: 1;
-  width: 100%;
-  border-left: 2px solid #d3d1d1;
-  border-right: 2px solid #d3d1d1;
-}
-html .mainContainer .header .col3,
-body .mainContainer .header .col3 {
-  height: 100%;
-  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 html .mainContainer .middle,
 body .mainContainer .middle {
@@ -84,13 +160,29 @@ body .mainContainer .middle {
   flex-flow: column nowrap;
   align-items: center;
 }
+html .mainContainer .middle .help,
+body .mainContainer .middle .help {
+  margin-top: 10px;
+  width: 100%;
+  flex: 0.3;
+  display: flex;
+  justify-content: flex-end;
+}
+html .mainContainer .middle .help .helpIcon,
+body .mainContainer .middle .help .helpIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: large;
+  margin-right: 5%;
+  border-radius: 50%;
+  background-color: black;
+}
 html .mainContainer .middle .title,
 body .mainContainer .middle .title {
-  flex: 1;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  font-family: "Courier New", Courier, monospace;
+  flex: 0.5;
   font-size: xx-large;
 }
 html .mainContainer .middle .levelParameter,
@@ -147,18 +239,21 @@ body .mainContainer .middle .userBanner .userProfileIcon {
 }
 html .mainContainer .middle .userBanner .userLevel,
 body .mainContainer .middle .userBanner .userLevel {
+  color: white;
   z-index: 2;
   margin-top: 112px;
   position: fixed;
 }
 html .mainContainer .middle .lauchContainer,
 body .mainContainer .middle .lauchContainer {
+  margin-top: 20%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
 }
 html .mainContainer .middle .lauchContainer .lauchGame,
 body .mainContainer .middle .lauchContainer .lauchGame {
+  color: white;
   flex: 1;
   width: 150px;
   height: 50px;
@@ -171,7 +266,6 @@ body .mainContainer .middle .lauchContainer .lauchGame {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: url("/ressources/images/league/other/cursor/hover_ally_precise.png"), auto;
 }
 html .mainContainer .bottom,
 body .mainContainer .bottom {

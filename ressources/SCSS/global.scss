@@ -1,12 +1,67 @@
 $defaultCursor: url("/ressources/images/league/other/cursor/hover_precise.png");
 $hoverCursor: url("/ressources/images/league/other/cursor/hover_ally_precise.png");
-
+$headerColColor: rgb(211,
+209,
+209);
+$backgroundBlur: blur(3rem);
 html,
-body{
-    -moz-user-select: none; /* Firefox */
-    -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
-    -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
-    user-select: none; /* Propriété standard */
+body {
+    -moz-user-select: none;
+    /* Firefox */
+    -webkit-user-select: none;
+    /* Chrome, Safari, Opéra depuis la version 15 */
+    -ms-user-select: none;
+    /* Internet explorer depuis la version 10 et Edge */
+    user-select: none;
+    /* Propriété standard */
     cursor: $defaultCursor, auto;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, Courier, monospace;
+    & * {
+        color: rgb(141, 129, 18);
+    }
+    .hoverable {
+        cursor: $hoverCursor, auto;
+    }
+    .popupContainer {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 99;
+        .popup {
+            width: 50%;
+            height: 30%;
+            background-color: aliceblue;
+            z-index: 100;
+            border: 1px solid rgb(141, 129, 18);
+            justify-content: space-around;
+            align-items: center;
+            flex-flow: column nowrap;
+            background-color: rgb(32, 32, 34);
+            display: flex;
+            &>* {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .title {
+                flex: 1;
+            }
+            .content {
+                flex: 3;
+            }
+            .quitButton {
+                flex: 1;
+                width: 30%;
+                border: 2px solid rgb(141, 129, 18);
+                margin-bottom: 10px;
+            }
+        }
+    }
 }
