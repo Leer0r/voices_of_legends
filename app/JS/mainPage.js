@@ -8,6 +8,12 @@ var levelParmeterString = [
     "moyen",
     "difficile"
 ];
+var gameDescriptor = {
+    classique: {
+        levelName: "Mode de jeu classique",
+        levelDesc: "Devine les champions par leurs son ! Différentes difficultées pour toujours plus de challenge"
+    }
+};
 function setLevelParameterEventListener() {
     var levelParameter = document.querySelector(".levelParameter");
     levelParameter.addEventListener('change', function (ev) {
@@ -25,15 +31,15 @@ function setPlayButtonEventListener() {
         window.location.href = "http://voices_of_legends.games.coffeebreaks.eu/quiz";
     });
 }
-function displayPopup(title, content) {
-    popupTitle.innerText = title;
-    popupContent.innerText = content;
+function displayPopup(desc) {
+    popupTitle.innerText = desc.levelName;
+    popupContent.innerText = desc.levelDesc;
     popupContainer.style.display = "flex";
 }
 function setHelpEventListener() {
     var _a;
     (_a = document.querySelector(".mainContainer .middle .help")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
-        displayPopup("test", "SVP marche");
+        displayPopup(gameDescriptor.classique);
     });
 }
 function setEventListener() {
