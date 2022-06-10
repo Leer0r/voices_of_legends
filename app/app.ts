@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser'
 
 import quizRouter from "./router/quiz/quizRouter"
+import resultRouter from "./router/result/resultRouter"
 import path from 'path';
 
 dotenv.config();
@@ -21,10 +22,12 @@ app.use('/ressources/js', express.static(path.join(__dirname,'client')))
 app.use('/ressources/audio', express.static(path.join(__dirname,'../ressources/sounds')))
 
 app.use("/quiz",quizRouter);
+app.use("/result", resultRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.render("mainPage/mainPage.ejs")
 });
+
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

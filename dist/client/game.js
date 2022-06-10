@@ -31,7 +31,7 @@ class quizManager {
         };
         this.gameStarted = false;
         this.currentTime = "";
-        this.nbChamToGuess = 14;
+        this.nbChamToGuess = 1;
         this.nbChamRemining = this.nbChamToGuess;
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
@@ -202,8 +202,13 @@ class quizManager {
     checkGameFinish() {
         if (this.isGameFinish()) {
             this.gameStarted = false;
-            alert(`Fini en ${this.timer.min} min et ${this.timer.sec} sec ! Si tu veut rejouer retourne sur la page d'acceuil`);
+            this.GoToResult();
         }
+    }
+    GoToResult() {
+        const userTime = this.getTime();
+        document.cookie = `userMin=${userTime[0]}; userSec=${userTime[0]}; Secure`;
+        window.location.href = "http://localhost:3000/result";
     }
     isGameFinish() {
         return this.nbChamRemining <= 0;
@@ -239,9 +244,10 @@ class quizManager {
         });
     }
     setChampionHintEventListener() {
-        var _a;
-        (_a = document.querySelector(".hint")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        const hintDiv = document.querySelector(".hint");
+        hintDiv.addEventListener("click", (ev) => {
             this.displayChampHint();
+            hintDiv.classList.add("response");
         });
     }
     setRedoSongEventListener() {
@@ -272,6 +278,9 @@ class quizManager {
         const clock = document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
+    }
+    getTime() {
+        return [this.timer.min, this.timer.sec];
     }
     goNext() {
         if (!this.gameStarted) {
@@ -309,7 +318,6 @@ class quizManager {
     }
     setEventListener() {
         this.setArrowEventListener();
-        //this.setPlayButtonListener()
         this.setChampionHintEventListener();
         this.setRedoSongEventListener();
     }

@@ -25,7 +25,9 @@ function setPlayButtonEventListener(){
     lauchGame.addEventListener("click", () => {
         let difficulty:HTMLSelectElement = <HTMLSelectElement>document.querySelector(".difficulty")
         document.cookie = `difficulty=${levelParmeterString[difficulty.value]}`
-        window.location.href = "http://voices_of_legends.games.coffeebreaks.eu/quiz"
+        //window.location.href = "http://voices_of_legends.games.coffeebreaks.eu/quiz"
+        window.location.href = "http://localhost:3000/quiz"
+
     })
 }
 

@@ -63,7 +63,7 @@ class quizManager {
         }
         this.gameStarted = false
         this.currentTime = ""
-        this.nbChamToGuess = 14
+        this.nbChamToGuess = 1
         this.nbChamRemining = this.nbChamToGuess
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
@@ -250,8 +250,14 @@ class quizManager {
     private checkGameFinish(){
         if(this.isGameFinish()){
             this.gameStarted = false
-            alert(`Fini en ${this.timer.min} min et ${this.timer.sec} sec ! Si tu veut rejouer retourne sur la page d'acceuil`)
+            this.GoToResult()
         }
+    }
+
+    private GoToResult(){
+        const userTime: number[] = this.getTime()
+        document.cookie = `userMin=${userTime[0]}; userSec=${userTime[0]}; Secure`
+        window.location.href = "http://localhost:3000/result"
     }
 
     private isGameFinish(){
@@ -292,8 +298,10 @@ class quizManager {
     }
 
     private setChampionHintEventListener(){
-        document.querySelector(".hint")?.addEventListener("click", () => {
+        const hintDiv:HTMLDivElement = <HTMLDivElement>document.querySelector(".hint")
+        hintDiv.addEventListener("click", (ev:Event) => {
             this.displayChampHint();
+            hintDiv.classList.add("response")
         })
     }
 
@@ -325,6 +333,10 @@ class quizManager {
         const clock = <HTMLInputElement>document.querySelector(".timer .value");
         clock.innerText = time;
         clock.textContent = time;
+    }
+
+    private getTime(){
+        return [this.timer.min,this.timer.sec]
     }
 
     private goNext(){
@@ -367,7 +379,6 @@ class quizManager {
 
     private setEventListener() {
         this.setArrowEventListener()
-        //this.setPlayButtonListener()
         this.setChampionHintEventListener()
         this.setRedoSongEventListener()
     }

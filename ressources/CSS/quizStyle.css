@@ -246,6 +246,10 @@ body .mainContainer .middle .askChampion .hint {
   justify-content: center;
   align-items: center;
 }
+html .mainContainer .middle .askChampion .response > .value,
+body .mainContainer .middle .askChampion .response > .value {
+  content: "champion";
+}
 html .mainContainer .middle .askChampion input,
 body .mainContainer .middle .askChampion input {
   width: 400px;
