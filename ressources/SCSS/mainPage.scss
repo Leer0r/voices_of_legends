@@ -1,15 +1,11 @@
 @import './global.scss';
-
-$headerColColor: rgb(211, 209, 209);
-$backgroundBlur: blur(3rem);
 html,
 body {
     border: 0;
     padding: 0;
     margin: 0;
     height: 100%;
-    font-family: 'Courier New', Courier, monospace;
-    .mainContainer{
+    .mainContainer {
         z-index: -2;
         color: #9AAFB4;
         background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/npe-ft-league-button-bg.png");
@@ -22,67 +18,97 @@ body {
         display: flex;
         flex-flow: column nowrap;
         align-items: center;
-        .header{
+        .header {
             width: 100%;
-            background-color: #000000;
-            border-top: 3px solid rgb(56, 153, 56);
+            background-color: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgb(141, 129, 18);
+            border-bottom: 1px solid gray;
             flex: 1;
             display: flex;
             flex-flow: row nowrap;
-            .col1 {
-                height: 100%;
-                flex: 1;
-            }
-            .col2 {
-                height: 100%;
-                flex: 10;
+            justify-content: space-around;
+            .leftContainer {
+                width: 100%;
                 display: flex;
-                flex-flow: column nowrap;
-                .line1 {
-                    flex: 1;
-                    border-bottom: 1px solid $headerColColor;
-                    border-left: 2px solid $headerColColor;
-                    border-right: 2px solid $headerColColor;
-                    width: 100%;
+                flex-flow: row nowrap;
+                justify-content: start;
+                align-items: center;
+                &>* {
+                    height: 100%;
+                    margin-left: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
-                .line2 {
-                    flex: 1;
-                    width: 100%;
-                    border-left: 2px solid $headerColColor;
-                    border-right: 2px solid $headerColColor;
+                .gameSelect {
+                    transition: border-bottom 1s;
+                    &:hover {
+                        border-bottom: 5px solid rgb(141, 129, 18);
+                    }
+                }
+                .selected {
+                    border-bottom: 5px solid rgb(121, 111, 20);
                 }
             }
-            .col3 {
-                height: 100%;
-                flex: 1;
+            .centerContainer {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .title {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: center;
+                    font-size: xx-large;
+                }
+            }
+            .rightContainer {
+                width: 100%;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                align-items: center;
             }
         }
-    
-        .middle{
+        .middle {
             width: 100%;
             flex: 9;
             display: flex;
             flex-flow: column nowrap;
             align-items: center;
-            .title{
-                flex: 1;
+            .help {
+                margin-top: 10px;
+                width: 100%;
+                flex: .3;
                 display: flex;
-                flex-flow: column nowrap;
-                align-items: center;
-                font-family: 'Courier New', Courier, monospace;
+                justify-content: flex-end;
+                .helpIcon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    font-size: large;
+                    margin-right: 5%;
+                    border-radius: 50%;
+                    background-color: black;
+                }
+            }
+            .title {
+                flex: .5;
                 font-size: xx-large;
             }
-            .levelParameter{
+            .levelParameter {
                 flex: 1;
                 display: flex;
                 flex-flow: column nowrap;
                 align-items: center;
             }
-            .userBanner{
+            .userBanner {
                 flex: 5;
                 display: flex;
                 justify-content: center;
-                .userBackBanner{
+                .userBackBanner {
                     height: 400px;
                     width: 200px;
                     position: fixed;
@@ -93,7 +119,7 @@ body {
                     background-size: cover;
                     background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/current-player-banner.png");
                 }
-                .userLevelRing{
+                .userLevelRing {
                     z-index: 2;
                     position: fixed;
                     height: 150px;
@@ -105,7 +131,7 @@ body {
                     background-size: cover;
                     background-image: url("https://raw.communitydragon.org/pbe/plugins/rcp-fe-lol-static-assets/global/default/images/uikit/themed-level-ring/theme-10-solid-border.png");
                 }
-                .userProfileIcon{
+                .userProfileIcon {
                     z-index: 1;
                     background-position: center;
                     /* Center the image */
@@ -118,18 +144,21 @@ body {
                     border-radius: 50%;
                     margin-top: 33px;
                 }
-                .userLevel{
+                .userLevel {
+                    color: white;
                     z-index: 2;
                     margin-top: 112px;
                     position: fixed;
                 }
             }
-            .lauchContainer{
+            .lauchContainer {
+                margin-top: 20%;
                 display: flex;
                 flex-flow: row nowrap;
                 align-items: center;
                 .lauchGame {
-                    flex:1;
+                    color: white;
+                    flex: 1;
                     width: 150px;
                     height: 50px;
                     background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/button-accept-default.png");
@@ -141,15 +170,12 @@ body {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    cursor: $hoverCursor, auto;
                 }
             }
         }
-    
-        .bottom{
+        .bottom {
             flex: 3;
             width: 100%;
         }
     }
-
 }

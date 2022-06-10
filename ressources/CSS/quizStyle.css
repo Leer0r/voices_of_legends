@@ -10,7 +10,11 @@ body {
   user-select: none;
   /* Propriété standard */
   cursor: url("/ressources/images/league/other/cursor/hover_precise.png"), auto;
-  font-family: "Courier New", Courier, monospace;
+  font-family: Courier, monospace;
+}
+html *,
+body * {
+  color: #8d8112;
 }
 
 html,

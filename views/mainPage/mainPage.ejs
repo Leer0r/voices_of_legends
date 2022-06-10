@@ -3,35 +3,49 @@
 
 <%- include("../global/header.ejs", {cssPath:"/ressources/css/mainPage.css"}); %>
 
-<body>
-    <div class="mainContainer">
-        <script src="/ressources/js/mainPage.js" defer></script>
-        <%- include("../global/head.ejs") %> 
-        <div class="middle">
-            <div class="title">
-                <div class="upTitle">VOICES OF</div>
-                <div class="botTitle">LEGENDS</div>
+    <body>
+        <div class="mainContainer">
+            <script src="/ressources/js/mainPage.js" defer></script>
+            <div class="header">
+                <div class="leftContainer">
+                    <div class="classicGame gameSelect hoverable selected">Classique</div>
+                    <div class="pixelGuess gameSelect hoverable">Pixel guess</div>
+                    <div class="championInteraction gameSelect hoverable">Interractions</div>
+                </div>
+                <div class="centerContainer">
+                    <div class="title">
+                        <div class="upTitle">VOICES OF</div>
+                        <div class="botTitle">LEGENDS</div>
+                    </div>
+                </div>
+                <div class="rightContainer"></div>
             </div>
-            <div class="levelParameter">
-                <p>Difficultée</p>
-                <select class="difficulty">
+            <div class="middle">
+                <div class="help">
+                    <div class="helpIcon hoverable">?</div>
+                </div>
+                <div class="title">Classique</div>
+                <div class="levelParameter">
+                    <p>Difficultée</p>
+                    <select class="difficulty">
                     <option value="0">Facile</option>
                     <option value="1">Moyen</option>
                 </select>
-                <p class="levelDesc">Avec les son de pick des champions</p>
+                    <p class="levelDesc">Avec les son de pick des champions</p>
+                </div>
+                <div class="userBanner">
+                    <div class="userBackBanner"></div>
+                    <div class="userLevelRing"></div>
+                    <div class="userProfileIcon"></div>
+                    <div class="userLevel">110</div>
+                </div>
+                <div class="lauchContainer hoverable">
+                    <div class="lauchGame">Jouer</div>
+                </div>
             </div>
-            <div class="userBanner">
-                <div class="userBackBanner"></div>
-                <div class="userLevelRing"></div>
-                <div class="userProfileIcon"></div>
-                <div class="userLevel">110</div>
-            </div>
-            <div class="lauchContainer">
-                <div class="lauchGame">Jouer</div>
-            </div>
+            <div class="bottom"></div>
         </div>
-        <div class="bottom"></div>
-    </div>
-</body>
+        <%- include("../global/popup.ejs") %>
+    </body>
 
 </html>

@@ -1,3 +1,8 @@
+interface levelDesc {
+    levelName:string,
+    levelDesc:string
+}
+
 const levelParameterDesc:any = [
     "Avec les son de pick des champions",
     "Avec les son de ban des champions",
@@ -9,6 +14,14 @@ const levelParmeterString:any = [
     "moyen",
     "difficile"
 ]
+
+const gameDescriptor: {classique:levelDesc} = {
+    classique: {
+        levelName: "Mode de jeu classique",
+        levelDesc: "Devine les champions par leurs son ! Différentes difficultées pour toujours plus de challenge"
+    }
+}
+
 
 function setLevelParameterEventListener(){
     let levelParameter:HTMLSelectElement = <HTMLSelectElement>document.querySelector(".levelParameter")
@@ -31,9 +44,22 @@ function setPlayButtonEventListener(){
     })
 }
 
+function displayPopup(desc:levelDesc){
+    popupTitle.innerText = desc.levelName
+    popupContent.innerText = desc.levelDesc
+    popupContainer.style.display = "flex"
+}
+
+function setHelpEventListener(){
+    document.querySelector(".mainContainer .middle .help")?.addEventListener("click", () => {
+        displayPopup(gameDescriptor.classique)
+    })
+}
+
 function setEventListener(){
     setLevelParameterEventListener()
     setPlayButtonEventListener()
+    setHelpEventListener()
 }
 
 setEventListener()
