@@ -1,6 +1,5 @@
 import { ChangeEvent, Component, ReactNode } from 'react';
-import Router, { NextRouter, useRouter } from 'next/router'
-import Link from 'next/link';
+import Router from 'next/router'
 import gameStart from '../interfaces/gameStart.interface';
 
 class mainpage extends Component{

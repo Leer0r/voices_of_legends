@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { ChangeEventHandler, useState } from "react"
+import { ChangeEventHandler, useEffect, useState } from "react"
 import dataPath from "../../interfaces/datapath.interface"
 
 export default function quiz() {
@@ -14,9 +14,10 @@ export default function quiz() {
     let nbChamToGuess = 1
     let nbChamRemining = nbChamToGuess
     let champDivList = [];
-    let championPannel = document.querySelector(".championPannel");
     let _currentChampSelected = 0;
     let userGuess = "";
+
+    let voiceUrlDifficulty = difficulty == "moyen" ? "champion-ban-vo" : "champion-choose-vo/"
 
     let dataPath:dataPath = {
         baseUrl: "https://raw.communitydragon.org",
@@ -25,6 +26,10 @@ export default function quiz() {
         patch: "latest",
         lang: "fr_FR"
     }
+
+    useEffect(() => {
+        console.log(difficulty)
+    })
 
     const handleChange = (event:any) => {
     }
