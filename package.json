@@ -9,7 +9,8 @@
         "build": "npx tsc",
         "start": "node dist/app.js",
         "design": "nodemon dist/app.js",
-        "fetch": "node ./data/fetchData.js"
+        "fetch": "node ./data/fetchData.js",
+        "docker:publish": "docker build -t leer0r/voices_of_legends:latest . && docker push leer0r/voices_of_legends:latest"
     },
     "repository": {
         "type": "git",

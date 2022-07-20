@@ -37,21 +37,6 @@ const gameDescriptor: {classique:levelDesc} = {
     }
 }
 
-function changePage(newPage:string,method:keyof requestsMethods,args:Array<args>) {
-    const form = document.createElement("form")
-    form.method = method;
-    form.action = newPage;
-    for(let i = 0; i < args.length; i++){
-        const input = document.createElement("input");
-        input.type = 'hidden';
-        input.name = args[i].title;
-        input.value = args[i].value;
-        form.appendChild(input);
-    }
-    document.body.appendChild(form);
-    form.submit();
-}
-
 function setLevelParameterEventListener(){
     let levelParameter:HTMLSelectElement = <HTMLSelectElement>document.querySelector(".levelParameter")
     levelParameter.addEventListener('change', (ev:Event) => {
@@ -66,11 +51,8 @@ function setPlayButtonEventListener(){
     let lauchGame:HTMLButtonElement = <HTMLButtonElement>document.querySelector(".lauchGame");
     lauchGame.addEventListener("click", () => {
         let difficulty:HTMLSelectElement = <HTMLSelectElement>document.querySelector(".difficulty")
-        document.cookie = `difficulty=${levelParmeterString[difficulty.value]}`
-        //window.location.href = "http://voices_of_legends.games.coffeebreaks.eu/quiz"
-        //window.location.href = `http://localhost:3000/quiz`
         console.log(window.location);
-        changePage("http://localhost:3000/quiz","get",[{
+        changePage("/quiz","get",[{
             title:"difficulty",
             value:levelParmeterString[difficulty.value]
         }])

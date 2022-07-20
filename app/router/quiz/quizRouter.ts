@@ -6,7 +6,6 @@ const router: Router = Router();
 router.use("/api", quizRouterAPI);
 
 router.get("/", async (req:Request, res:Response, next:NextFunction) => {
-    console.log(req.query)
     let difficulty = <string>req.query.difficulty
     if(!["facile","moyen","difficile"].includes(difficulty)){
         difficulty = "facile"
