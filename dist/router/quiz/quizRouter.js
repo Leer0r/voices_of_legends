@@ -17,8 +17,8 @@ const quizRouterAPI_1 = __importDefault(require("./quizRouterAPI"));
 const router = (0, express_1.Router)();
 router.use("/api", quizRouterAPI_1.default);
 router.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let difficulty = req.cookies.difficulty;
-    console.log(difficulty);
+    console.log(req.query);
+    let difficulty = req.query.difficulty;
     if (!["facile", "moyen", "difficile"].includes(difficulty)) {
         difficulty = "facile";
     }

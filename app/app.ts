@@ -1,6 +1,8 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser';
+
 
 import quizRouter from "./router/quiz/quizRouter"
 import resultRouter from "./router/result/resultRouter"
@@ -15,6 +17,9 @@ app.set( "views", path.join( __dirname, "../views" ) );
 app.set( "view engine", "ejs" );
 
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 app.use('/ressources/css', express.static(path.join(__dirname, '../ressources/CSS')));
 app.use('/ressources/images', express.static(path.join(__dirname, '../ressources/images')));
