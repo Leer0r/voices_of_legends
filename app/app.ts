@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 
 import quizRouter from "./router/quiz/quizRouter"
 import resultRouter from "./router/result/resultRouter"
+import pixelGuessRouter from "./router/pixelGuess/pixelGuessRouter"
 import path from 'path';
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/ressources/audio', express.static(path.join(__dirname,'../ressources/s
 
 app.use("/quiz",quizRouter);
 app.use("/result", resultRouter);
+app.use("/pixelGuess", pixelGuessRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.render("mainPage/mainPage.ejs")

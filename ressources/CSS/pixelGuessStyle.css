@@ -69,3 +69,17 @@ body .popupContainer .popup .quitButton {
   border: 2px solid #8d8112;
   margin-bottom: 10px;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html #image1,
+body #image1 {
+  width: 800px;
+  height: auto;
+}
