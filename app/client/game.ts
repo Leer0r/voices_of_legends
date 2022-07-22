@@ -63,7 +63,7 @@ class quizManager {
         }
         this.gameStarted = false
         this.currentTime = ""
-        this.nbChamToGuess = 1
+        this.nbChamToGuess = 14
         this.nbChamRemining = this.nbChamToGuess
         this.champDivList = [];
         this.championPannel = document.querySelector(".championPannel");
