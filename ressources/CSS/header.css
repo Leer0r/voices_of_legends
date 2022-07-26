@@ -1,0 +1,35 @@
+.header {
+  width: 100%;
+  background-color: #000000;
+  border-top: 3px solid #389938;
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.header .col1 {
+  height: 100%;
+  flex: 1;
+}
+.header .col2 {
+  height: 100%;
+  flex: 10;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.header .col2 .line1 {
+  flex: 1;
+  border-bottom: 1px solid #d3d1d1;
+  border-left: 2px solid #d3d1d1;
+  border-right: 2px solid #d3d1d1;
+  width: 100%;
+}
+.header .col2 .line2 {
+  flex: 1;
+  width: 100%;
+  border-left: 2px solid #d3d1d1;
+  border-right: 2px solid #d3d1d1;
+}
+.header .col3 {
+  height: 100%;
+  flex: 1;
+}

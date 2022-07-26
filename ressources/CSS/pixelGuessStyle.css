@@ -70,16 +70,156 @@ body .popupContainer .popup .quitButton {
   margin-bottom: 10px;
 }
 
+.header {
+  width: 100%;
+  background-color: #000000;
+  border-top: 3px solid #389938;
+  flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.header .col1 {
+  height: 100%;
+  flex: 1;
+}
+.header .col2 {
+  height: 100%;
+  flex: 10;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.header .col2 .line1 {
+  flex: 1;
+  border-bottom: 1px solid #d3d1d1;
+  border-left: 2px solid #d3d1d1;
+  border-right: 2px solid #d3d1d1;
+  width: 100%;
+}
+.header .col2 .line2 {
+  flex: 1;
+  width: 100%;
+  border-left: 2px solid #d3d1d1;
+  border-right: 2px solid #d3d1d1;
+}
+.header .col3 {
+  height: 100%;
+  flex: 1;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+html .background,
+body .background {
+  background-image: url("/ressources/images/league/background/bg_2.jpg");
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  filter: blur(3rem);
+  -webkit-filter: blur(3rem);
+  -moz-filter: blur(3rem);
+  -o-filter: blur(3rem);
+  -ms-filter: blur(3rem);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+html .mainContainer,
+body .mainContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+html .mainContainer .header,
+body .mainContainer .header {
+  width: 100%;
+  flex: 1;
+}
+html .mainContainer .middle,
+body .mainContainer .middle {
+  width: 100%;
+  flex: 9;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+html .mainContainer .middle > *,
+body .mainContainer .middle > * {
+  margin-bottom: 50px;
+}
+html .mainContainer .middle > .gameInfo > *,
+body .mainContainer .middle > .gameInfo > * {
+  display: flex;
+  flex-flow: column nowrap;
+}
+html .mainContainer .middle > .gameInfo > * .text,
+body .mainContainer .middle > .gameInfo > * .text {
+  font-size: large;
+  color: #d3d1d1;
+}
+html .mainContainer .middle > .gameInfo > * .value,
+body .mainContainer .middle > .gameInfo > * .value {
+  font-size: larger;
+  color: burlywood;
+}
+html .mainContainer .middle .gameInfo,
+body .mainContainer .middle .gameInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row nowrap;
+}
+html .mainContainer .middle .gameInfo .timer,
+body .mainContainer .middle .gameInfo .timer {
+  height: 100%;
+  flex: 1;
+  align-items: center;
+}
+html .mainContainer .middle .gameInfo .difficulty,
+body .mainContainer .middle .gameInfo .difficulty {
+  height: 100%;
+  flex: 1;
+  align-items: center;
+}
+html .mainContainer .middle .champToGuess,
+body .mainContainer .middle .champToGuess {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+html .mainContainer .middle .champToGuess #guessImage,
+body .mainContainer .middle .champToGuess #guessImage {
+  width: 800px;
+  height: auto;
+}
+html .mainContainer .middle .userResponse,
+body .mainContainer .middle .userResponse {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-html #image1,
-body #image1 {
-  width: 800px;
-  height: auto;
+html .mainContainer .middle .userResponse .championInput,
+body .mainContainer .middle .userResponse .championInput {
+  width: 100%;
+  width: 400px;
+  height: 50px;
+  border: none;
+  font-size: xx-large;
+  border-radius: 2px;
+  background-color: white;
+  margin-right: 20px;
+}
+html .mainContainer .bottom,
+body .mainContainer .bottom {
+  width: 100%;
+  flex: 1;
 }

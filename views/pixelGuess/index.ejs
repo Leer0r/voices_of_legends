@@ -4,6 +4,28 @@
 
 <body>
     <script src="/ressources/js/pixelGuess.js" defer></script>
-    <img src="/ressources/images/league/champions/Pyke/Pyke.jpg" alt="" id="image1" hidden>
+    <div class="background"></div>
+    <div class="mainContainer">
+        <%- include("../global/head.ejs") %> 
+        <div class="middle">
+            <div class="gameInfo">
+                <div class="timer">
+                    <div class="text">TIMER</div>
+                    <div class="value">04:25</div>
+                </div>
+                <div class="difficulty">
+                    <div class="text">GAME DIFFICULTY</div>
+                    <div class="value"><%= difficulty %> </div>
+                </div>
+            </div>
+            <div class="champToGuess">
+                <img src="/ressources/images/league/champions/Pyke/Pyke.jpg" alt="" id="guessImage" hidden>
+            </div>
+            <div class="userResponse">
+                <input type="text" class="championInput" spellcheck="false" autocomplete="false">
+            </div>
+        </div>
+        <div class="bottom"></div>
+    </div>
 </body>
 </html>

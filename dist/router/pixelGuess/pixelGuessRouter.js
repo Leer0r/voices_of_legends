@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const router = (0, express_1.Router)();
 router.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    res.render("pixelGuess/index.ejs");
+    let difficulty = req.query.difficulty.toLowerCase();
+    if (!["facile", "moyen", "difficile"].includes(difficulty)) {
+        difficulty = "facile";
+    }
+    res.render("pixelGuess/index.ejs", { difficulty: difficulty });
 }));
 exports.default = router;

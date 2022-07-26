@@ -1,15 +1,112 @@
 @import './global.scss';
-
+@import './header.scss';
 html,
 body {
     margin: 0;
     padding: 0;
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    height: 100%;
 
-    #image1 {
-        width: 800px;
-        height: auto;
-      }
+    .background {
+        background-image: url("/ressources/images/league/background/bg_2.jpg");
+        background-position: center;
+        /* Center the image */
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-size: cover;
+        filter: $backgroundBlur;
+        -webkit-filter: $backgroundBlur;
+        -moz-filter: $backgroundBlur;
+        -o-filter: $backgroundBlur;
+        -ms-filter: $backgroundBlur;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+    }
+    .mainContainer {
+        height: 100%;
+        display:flex;
+        align-items: center;
+        flex-flow: column nowrap;
+
+        .header{
+            width: 100%;
+            flex: 1;
+        }
+
+        .middle{
+            width: 100%;
+            flex: 9;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            &>*{
+                margin-bottom: 50px;
+            }
+
+            &>.gameInfo>* {
+                display: flex;
+                flex-flow: column nowrap;
+                .text {
+                    font-size: large;
+                    color: $headerColColor;
+                }
+                .value {
+                    font-size: larger;
+                    color: burlywood;
+                }
+            }
+            .gameInfo {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-flow: row nowrap;
+                .timer {
+                    height: 100%;
+                    flex: 1;
+                    align-items: center;
+                }
+                .difficulty {
+                    height: 100%;
+                    flex: 1;
+                    align-items: center;
+                }
+            }
+            .champToGuess {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+
+                #guessImage{
+                    width: 800px;
+                    height: auto;
+                }
+            }
+            .userResponse{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .championInput{
+                    width: 100%;
+                    width: 400px;
+                    height: 50px;
+                    border: none;
+                    font-size: xx-large;
+                    border-radius: 2px;
+                    background-color: white;
+                    margin-right: 20px;
+                }
+
+            }
+        }
+
+        .bottom{
+            width: 100%;
+            flex: 1;
+        }
+    }
   }

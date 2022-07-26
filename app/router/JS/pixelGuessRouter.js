@@ -39,8 +39,13 @@ exports.__esModule = true;
 var express_1 = require("express");
 var router = express_1.Router();
 router.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var difficulty;
     return __generator(this, function (_a) {
-        res.render("pixelGuess/index.ejs");
+        difficulty = req.query.difficulty.toLowerCase();
+        if (!["facile", "moyen", "difficile"].includes(difficulty)) {
+            difficulty = "facile";
+        }
+        res.render("pixelGuess/index.ejs", { difficulty: difficulty });
         return [2 /*return*/];
     });
 }); });
