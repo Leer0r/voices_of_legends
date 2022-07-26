@@ -42,6 +42,14 @@ function pixelizeIMG(sample_size:number):void{
 
 }
 
-for(let x = 60; x >= 2; x-=1){
-    pixelizeIMG(x);
+async function pixelGame() {
+    let delay:number = 1000
+    for(let x = 60; x >= 1; x-=5 - (x < 7 ? 4 : 0)){
+        setTimeout(() => {
+            pixelizeIMG(x)
+        }, delay)
+        delay += 1000
+    }
 }
+
+pixelGame()

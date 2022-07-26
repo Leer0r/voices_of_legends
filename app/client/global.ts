@@ -12,3 +12,8 @@ function changePage(newPage:string,method:keyof requestsMethods,args:Array<args>
     document.body.appendChild(form);
     form.submit();
 }
+
+function sleepFor(sleepDuration:number){
+    var now = new Date().getTime();
+    while(new Date().getTime() < now + sleepDuration){ /* Do nothing */ }
+}

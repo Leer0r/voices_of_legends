@@ -13,3 +13,7 @@ function changePage(newPage, method, args) {
     document.body.appendChild(form);
     form.submit();
 }
+function sleepFor(sleepDuration) {
+    var now = new Date().getTime();
+    while (new Date().getTime() < now + sleepDuration) { /* Do nothing */ }
+}

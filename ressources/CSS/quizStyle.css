@@ -1,6 +1,7 @@
 @charset "UTF-8";
 html,
 body {
+  height: 100%;
   -moz-user-select: none;
   /* Firefox */
   -webkit-user-select: none;
@@ -74,6 +75,7 @@ body {
   border: 0;
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 html .background,
 body .background {
@@ -194,12 +196,6 @@ body .mainContainer .middle .gameInfo {
   justify-content: center;
   flex-flow: row nowrap;
 }
-html .mainContainer .middle .gameInfo .champCounter,
-body .mainContainer .middle .gameInfo .champCounter {
-  height: 100%;
-  flex: 1;
-  align-items: flex-end;
-}
 html .mainContainer .middle .gameInfo .timer,
 body .mainContainer .middle .gameInfo .timer {
   height: 100%;
@@ -210,7 +206,7 @@ html .mainContainer .middle .gameInfo .difficulty,
 body .mainContainer .middle .gameInfo .difficulty {
   height: 100%;
   flex: 1;
-  align-items: flex-start;
+  align-items: center;
 }
 html .mainContainer .middle .championSelect,
 body .mainContainer .middle .championSelect {

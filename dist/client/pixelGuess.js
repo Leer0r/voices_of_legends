@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 function pixelizeIMG(sample_size) {
     let c = document.createElement("canvas");
     let img1 = new Image();
@@ -33,6 +42,15 @@ function pixelizeIMG(sample_size) {
     const currentImage = document.getElementById("image1");
     img1.src = currentImage.src;
 }
-for (let x = 60; x >= 2; x -= 1) {
-    pixelizeIMG(x);
+function pixelGame() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let delay = 1000;
+        for (let x = 60; x >= 1; x -= 5 - (x < 7 ? 4 : 0)) {
+            setTimeout(() => {
+                pixelizeIMG(x);
+            }, delay);
+            delay += 1000;
+        }
+    });
 }
+pixelGame();

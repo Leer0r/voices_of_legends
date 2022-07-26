@@ -6,6 +6,7 @@ body {
     border: 0;
     padding: 0;
     margin: 0;
+    height: 100%;
     .background {
         background-image: url("/ressources/images/league/background/bg_1.jpg");
         background-position: center;
@@ -103,11 +104,6 @@ body {
                 align-items: center;
                 justify-content: center;
                 flex-flow: row nowrap;
-                .champCounter {
-                    height: 100%;
-                    flex: 1;
-                    align-items: flex-end;
-                }
                 .timer {
                     height: 100%;
                     flex: 1;
@@ -116,7 +112,7 @@ body {
                 .difficulty {
                     height: 100%;
                     flex: 1;
-                    align-items: flex-start;
+                    align-items: center;
                 }
             }
             .championSelect {
