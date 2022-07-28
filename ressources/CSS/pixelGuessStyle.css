@@ -198,7 +198,7 @@ body .mainContainer .middle .champToGuess {
 }
 html .mainContainer .middle .champToGuess #guessImage,
 body .mainContainer .middle .champToGuess #guessImage {
-  width: 800px;
+  width: 50%;
   height: auto;
 }
 html .mainContainer .middle .userResponse,

@@ -1,6 +1,23 @@
+interface selectedImage{
+    champSkins:champSkins;
+    skinNumber:number
+}
+
 class pixelGuess {
+    difficulty:string = ""
+    guessImage:HTMLImageElement = <HTMLImageElement>document.getElementById("guessImage");
+    allChampSkins:Array<champSkins> = [];
+    selectedImage:selectedImage = {
+        champSkins:
+        {
+            id:0,
+            name:"",
+            skins:[]
+        },
+        skinNumber:0
+    }
     constructor() {
-        this.pixelGame();
+        this.lauchGame();
     }
 
     pixelizeIMG(sample_size:number):void{
@@ -42,6 +59,45 @@ class pixelGuess {
         const currentImage:HTMLImageElement = <HTMLImageElement>document.getElementById("guessImage");
         img1.src = currentImage.src
     
+    }
+
+    getDifficulty() {
+        this.difficulty = (<HTMLDivElement>document.querySelector(".middle .gameInfo .difficulty .value")).innerText
+        console.log(this.difficulty)
+    }
+
+    lauchGame() {
+        getAllChampSkins()
+        .then((result:Array<champSkins>) => {
+            this.allChampSkins = result
+            console.log(this.allChampSkins)
+
+            this.getDifficulty();
+            this.chooseImage();
+            this.pixelGame();
+        })
+    }
+
+    chooseImage(){
+        let champion:number = getRandomInt(this.allChampSkins.length)
+        let championSkin;
+        if(this.difficulty == "facile"){
+            championSkin = 0
+        }
+        else {
+            championSkin = 1
+        }
+        this.selectedImage.champSkins = this.allChampSkins[champion]
+        this.selectedImage.skinNumber = championSkin
+        console.log(this.getSkinPath(this.selectedImage.champSkins.id,this.selectedImage.skinNumber))
+    }
+
+    setGuessImage(imgSrc:string) {
+        this.guessImage.src = imgSrc
+    }
+
+    getSkinPath(champId:number,skinsId:number):string{
+        return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${champId}0${skinsId < 10 ? `0${skinsId}` : `${skinsId}`}.jpg`
     }
 
     async pixelGame() {

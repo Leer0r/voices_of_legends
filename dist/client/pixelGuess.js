@@ -10,7 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 class pixelGuess {
     constructor() {
-        this.pixelGame();
+        this.difficulty = "";
+        this.guessImage = document.getElementById("guessImage");
+        this.allChampSkins = [];
+        this.selectedImage = {
+            champSkins: {
+                id: 0,
+                name: "",
+                skins: []
+            },
+            skinNumber: 0
+        };
+        this.lauchGame();
     }
     pixelizeIMG(sample_size) {
         let c = document.createElement("canvas");
@@ -44,6 +55,39 @@ class pixelGuess {
         };
         const currentImage = document.getElementById("guessImage");
         img1.src = currentImage.src;
+    }
+    getDifficulty() {
+        this.difficulty = document.querySelector(".middle .gameInfo .difficulty .value").innerText;
+        console.log(this.difficulty);
+    }
+    lauchGame() {
+        getAllChampSkins()
+            .then((result) => {
+            this.allChampSkins = result;
+            console.log(this.allChampSkins);
+            this.getDifficulty();
+            this.chooseImage();
+            this.pixelGame();
+        });
+    }
+    chooseImage() {
+        let champion = getRandomInt(this.allChampSkins.length);
+        let championSkin;
+        if (this.difficulty == "facile") {
+            championSkin = 0;
+        }
+        else {
+            championSkin = 1;
+        }
+        this.selectedImage.champSkins = this.allChampSkins[champion];
+        this.selectedImage.skinNumber = championSkin;
+        console.log(this.getSkinPath(this.selectedImage.champSkins.id, this.selectedImage.skinNumber));
+    }
+    setGuessImage(imgSrc) {
+        this.guessImage.src = imgSrc;
+    }
+    getSkinPath(champId, skinsId) {
+        return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${champId}0${skinsId < 10 ? `0${skinsId}` : `${skinsId}`}.jpg`;
     }
     pixelGame() {
         return __awaiter(this, void 0, void 0, function* () {
