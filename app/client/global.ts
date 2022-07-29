@@ -1,6 +1,7 @@
 interface skin {
     id:number
-    splashPath:string
+    splashPath:string,
+    name:string
 }
 
 interface champSkins{
@@ -50,7 +51,7 @@ async function getChampSkins(champId:number): Promise<champSkins>{
     const response = await fetch(fetchLocation);
     const result = await response.json();
     champSkins = {
-        name: result["name"],
+        name: result["name"].toLowerCase(),
         skins: [
         ],
         id:result['id']
@@ -58,7 +59,8 @@ async function getChampSkins(champId:number): Promise<champSkins>{
     for(let i = 0; i < result["skins"].length; i++){
         const newSkin:skin = {
             id: result["skins"][i]["id"],
-            splashPath: result["skins"][i]["splashPath"]
+            splashPath: result["skins"][i]["splashPath"],
+            name: result["skins"][i]["name"].toLowerCase()
         }
         champSkins["skins"].push(newSkin)
     }
