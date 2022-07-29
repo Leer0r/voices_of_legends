@@ -29,7 +29,7 @@ function sleepFor(sleepDuration) {
 function getAllChampSkins() {
     return __awaiter(this, void 0, void 0, function* () {
         let allChampSkins = [];
-        for (let i = 1; i < 6; i++) {
+        for (let i = 1; i < 10; i++) {
             allChampSkins.push(yield getChampSkins(i));
         }
         return allChampSkins;
@@ -61,6 +61,26 @@ function getChampSkins(champId) {
         return champSkins;
     });
 }
+function arrayContains(array, element) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] = element) {
+            return true;
+        }
+    }
+    return false;
+}
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
+}
+function getRandomArray(max, length) {
+    const rangeArray = [...Array(max).keys()].map(x => x + 1);
+    const randArray = [];
+    let randNumber;
+    for (let i = 0; i < length; i++) {
+        randNumber = getRandomInt(rangeArray.length - 1);
+        randArray.push(rangeArray[randNumber]);
+        rangeArray.splice(randNumber, 1);
+    }
+    console.log(randArray);
+    return randArray;
 }

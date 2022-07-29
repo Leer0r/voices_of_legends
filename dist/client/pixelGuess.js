@@ -13,19 +13,14 @@ class pixelGuess {
         this.difficulty = "";
         this.guessImage = document.getElementById("guessImage");
         this.allChampSkins = [];
-        this.selectedImage = {
-            champSkins: {
-                id: 0,
-                name: "",
-                skins: []
-            },
-            skinNumber: 0
-        };
+        this.selectedImages = [];
+        this.nbChampToGuess = 10;
         this.lauchGame();
     }
     pixelizeIMG(sample_size) {
         let c = document.createElement("canvas");
         let img1 = new Image();
+        img1.crossOrigin = "unknown";
         img1.onload = function () {
             var _a;
             const w = img1.width;
@@ -58,7 +53,6 @@ class pixelGuess {
     }
     getDifficulty() {
         this.difficulty = document.querySelector(".middle .gameInfo .difficulty .value").innerText;
-        console.log(this.difficulty);
     }
     lauchGame() {
         getAllChampSkins()
@@ -66,28 +60,48 @@ class pixelGuess {
             this.allChampSkins = result;
             console.log(this.allChampSkins);
             this.getDifficulty();
-            this.chooseImage();
+            this.chooseImages();
             this.pixelGame();
         });
     }
-    chooseImage() {
-        let champion = getRandomInt(this.allChampSkins.length);
-        let championSkin;
-        if (this.difficulty == "facile") {
-            championSkin = 0;
+    chooseImages() {
+        const randArray = getRandomArray(50, this.nbChampToGuess);
+        for (let i = 0; i < this.nbChampToGuess; i++) {
+            this.selectedImages[i] = {
+                champSkins: {
+                    id: 0,
+                    name: "",
+                    skins: []
+                },
+                guessName: "",
+                skinNumber: 0
+            };
+            let champion = getRandomInt(this.allChampSkins.length);
+            let championSkin;
+            this.selectedImages[i].champSkins = this.allChampSkins[champion];
+            if (this.difficulty == "facile") {
+                championSkin = 0;
+                this.selectedImages[i].guessName = this.allChampSkins[champion].name;
+            }
+            else if (this.difficulty == "moyen") {
+                championSkin = getRandomInt(this.selectedImages[i].champSkins.skins.length - 2) + 1;
+                this.selectedImages[i].guessName = this.allChampSkins[champion].name;
+            }
+            else {
+                championSkin = getRandomInt(this.selectedImages[i].champSkins.skins.length - 2) + 1;
+                console.log(championSkin);
+                this.selectedImages[i].guessName = this.allChampSkins[champion].skins[championSkin].name;
+            }
+            this.selectedImages[i].skinNumber = this.allChampSkins[champion].skins[championSkin].id;
+            console.log(this.selectedImages[i]);
         }
-        else {
-            championSkin = 1;
-        }
-        this.selectedImage.champSkins = this.allChampSkins[champion];
-        this.selectedImage.skinNumber = championSkin;
-        console.log(this.getSkinPath(this.selectedImage.champSkins.id, this.selectedImage.skinNumber));
+        //this.setGuessImage(this.getSkinPath(this.selectedImage.champSkins.id,this.selectedImage.skinNumber))
     }
     setGuessImage(imgSrc) {
         this.guessImage.src = imgSrc;
     }
     getSkinPath(champId, skinsId) {
-        return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${champId}0${skinsId < 10 ? `0${skinsId}` : `${skinsId}`}.jpg`;
+        return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${skinsId}.jpg`;
     }
     pixelGame() {
         return __awaiter(this, void 0, void 0, function* () {

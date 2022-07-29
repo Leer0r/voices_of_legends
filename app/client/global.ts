@@ -35,7 +35,7 @@ function sleepFor(sleepDuration:number){
 
 async function getAllChampSkins(): Promise<Array<champSkins>>{
     let allChampSkins:Array<champSkins> = []
-    for(let i = 1; i < 6; i++){
+    for(let i = 1; i < 10; i++){
         allChampSkins.push(await getChampSkins(i));
     }
     return allChampSkins;
@@ -67,6 +67,28 @@ async function getChampSkins(champId:number): Promise<champSkins>{
     return champSkins
 }
 
+function arrayContains<T>(array:Array<T>,element:T):boolean{
+    for(let i = 0; i < array.length; i++){
+        if(array[i] = element){
+            return true
+        }
+    }
+    return false
+}
+
 function getRandomInt(max:number) {
     return Math.floor(Math.random() * max);
-  }
+}
+
+function getRandomArray(max:number,length:number):Array<number> {
+    const rangeArray = [...Array(max).keys()].map(x => x + 1);
+    const randArray:Array<number> = []
+    let randNumber;
+    for(let i = 0; i < length; i++){
+        randNumber = getRandomInt(rangeArray.length - 1);
+        randArray.push(rangeArray[randNumber])
+        rangeArray.splice(randNumber,1);
+    }
+    console.log(randArray)
+    return randArray
+}

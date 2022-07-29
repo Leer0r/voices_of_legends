@@ -1,21 +1,15 @@
 interface selectedImage{
     champSkins:champSkins;
-    skinNumber:number
+    skinNumber:number;
+    guessName:string;
 }
 
 class pixelGuess {
     difficulty:string = ""
     guessImage:HTMLImageElement = <HTMLImageElement>document.getElementById("guessImage");
     allChampSkins:Array<champSkins> = [];
-    selectedImage:selectedImage = {
-        champSkins:
-        {
-            id:0,
-            name:"",
-            skins:[]
-        },
-        skinNumber:0
-    }
+    selectedImages:Array<selectedImage> = [];
+    nbChampToGuess:number = 10;
     constructor() {
         this.lauchGame();
     }
@@ -23,6 +17,7 @@ class pixelGuess {
     pixelizeIMG(sample_size:number):void{
         let c = document.createElement("canvas");
         let img1 = new Image();
+        img1.crossOrigin = "unknown"
     
         img1.onload = function () {
             const w = img1.width;
@@ -63,7 +58,6 @@ class pixelGuess {
 
     getDifficulty() {
         this.difficulty = (<HTMLDivElement>document.querySelector(".middle .gameInfo .difficulty .value")).innerText
-        console.log(this.difficulty)
     }
 
     lauchGame() {
@@ -73,23 +67,43 @@ class pixelGuess {
             console.log(this.allChampSkins)
 
             this.getDifficulty();
-            this.chooseImage();
+            this.chooseImages();
             this.pixelGame();
         })
     }
 
-    chooseImage(){
-        let champion:number = getRandomInt(this.allChampSkins.length)
-        let championSkin;
-        if(this.difficulty == "facile"){
-            championSkin = 0
-        }
-        else {
-            championSkin = 1
-        }
-        this.selectedImage.champSkins = this.allChampSkins[champion]
-        this.selectedImage.skinNumber = championSkin
-        console.log(this.getSkinPath(this.selectedImage.champSkins.id,this.selectedImage.skinNumber))
+    chooseImages(){
+        const randArray:Array<number> = getRandomArray(50,this.nbChampToGuess);
+        for(let i = 0; i < this.nbChampToGuess; i++){
+            this.selectedImages[i] = {
+                champSkins: {
+                    id:0,
+                    name:"",
+                    skins:[]
+                },
+                guessName: "",
+                skinNumber:0
+            }
+            let champion:number = getRandomInt(this.allChampSkins.length)
+            let championSkin;
+            this.selectedImages[i].champSkins = this.allChampSkins[champion]
+            if(this.difficulty == "facile"){
+                championSkin = 0
+                this.selectedImages[i].guessName = this.allChampSkins[champion].name
+            }
+            else if (this.difficulty == "moyen") {
+                championSkin = getRandomInt(this.selectedImages[i].champSkins.skins.length - 2) + 1;
+                this.selectedImages[i].guessName = this.allChampSkins[champion].name
+            }
+            else {
+                championSkin = getRandomInt(this.selectedImages[i].champSkins.skins.length - 2) + 1;
+                console.log(championSkin)
+                this.selectedImages[i].guessName = this.allChampSkins[champion].skins[championSkin].name
+            }
+            this.selectedImages[i].skinNumber = this.allChampSkins[champion].skins[championSkin].id
+            console.log(this.selectedImages[i])
+            }
+        //this.setGuessImage(this.getSkinPath(this.selectedImage.champSkins.id,this.selectedImage.skinNumber))
     }
 
     setGuessImage(imgSrc:string) {
@@ -97,7 +111,7 @@ class pixelGuess {
     }
 
     getSkinPath(champId:number,skinsId:number):string{
-        return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${champId}0${skinsId < 10 ? `0${skinsId}` : `${skinsId}`}.jpg`
+        return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${skinsId}.jpg`
     }
 
     async pixelGame() {

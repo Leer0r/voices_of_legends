@@ -52,11 +52,13 @@ const gameDescriptor: {[gameName in games]:levelDesc} = {
         difficultyDesc: {
             levelParmeterName: [
                 "Facile",
-                "Moyen"
+                "Moyen",
+                "difficile"
             ],
             levelParameterDesc: [
                 "Avec les images de base des champions",
-                "Avec les images des skins des champions"
+                "Avec les images des skins des champions",
+                "Uniquement les skins, devinez leurs noms précis"
             ]
         }
     }
