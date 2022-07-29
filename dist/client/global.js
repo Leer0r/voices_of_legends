@@ -42,7 +42,7 @@ function getChampSkins(champId) {
             name: "",
             skins: []
         };
-        const fetchLocation = `https://cdn.communitydragon.org/latest/champion/${champId}/data`;
+        const fetchLocation = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/fr_fr/v1/champions/${champId}.json`;
         const response = yield fetch(fetchLocation);
         const result = yield response.json();
         champSkins = {
