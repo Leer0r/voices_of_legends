@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 function changePage(newPage, method, args) {
     const form = document.createElement("form");
     form.method = method;

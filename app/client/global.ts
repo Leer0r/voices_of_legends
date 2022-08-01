@@ -1,6 +1,3 @@
-import { response } from "express";
-import { ReadStream } from "fs";
-
 interface skin {
     id:number
     splashPath:string,

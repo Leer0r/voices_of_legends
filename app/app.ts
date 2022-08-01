@@ -8,6 +8,7 @@ import quizRouter from "./router/quiz/quizRouter"
 import resultRouter from "./router/result/resultRouter"
 import pixelGuessRouter from "./router/pixelGuess/pixelGuessRouter"
 import path from 'path';
+import { getAllChampionSkins } from './shared/globalData';
 
 dotenv.config();
 
@@ -39,3 +40,5 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
+
+getAllChampionSkins()
