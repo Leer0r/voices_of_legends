@@ -62,7 +62,7 @@ class pixelGuess {
     }
 
     lauchGame() {
-        getAllChampSkins()
+        getNbChampSkins(this.nbChampToGuess)
         .then(async (result:Array<champSkins>) => {
             this.allChampSkins = result
             console.log(this.allChampSkins)

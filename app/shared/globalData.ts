@@ -1,12 +1,13 @@
 import fs from 'fs'
+import axios from 'axios'
 
-interface skin {
+export interface skin {
     id:number
     splashPath:string,
     name:string
 }
 
-interface champSkins{
+export interface champSkins{
     name:string,
     skins: Array<skin>,
     id:number
@@ -28,8 +29,8 @@ async function getChampSkins(champId:number): Promise<champSkins>{
         skins: []
     }
     const fetchLocation = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/fr_fr/v1/champions/${champId}.json`
-    const response = await fetch(fetchLocation);
-    const result = await response.json();
+    const response = await axios.get(fetchLocation);
+    const result = response.data;
     champSkins = {
         name: result["name"].toLowerCase(),
         skins: [
@@ -76,8 +77,8 @@ function getRandomArray(max:number,length:number):Array<number> {
 async function getAllChampId():Promise<Array<number>>{
     const returnArray:Array<number> = []
     const fetchLocation = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json`
-    const response = await fetch(fetchLocation)
-    const res = await response.json()
+    const response = await axios.get(fetchLocation)
+    const res = response.data;
     const resArray:Array<any> = <Array<any>> res;
     for(let i:number = 1; i < resArray.length; i++){
         returnArray.push(resArray[i]["id"])
@@ -85,7 +86,10 @@ async function getAllChampId():Promise<Array<number>>{
     return returnArray
 }
 
-export async function getAllChampionSkins():Promise<void> {
-    const storageLocation:string = `${process.cwd()}/ressources/gameData`
-    const championArray:Array<number> = await getAllChampSkins();
+export async function getAllChampionSkins():Promise<void>{
+    const storageLocation:string = `${process.cwd()}/ressources/gameData/gameData.json`
+    const allChamp:champSkins[] = await getAllChampSkins()
+    fs.writeFile(storageLocation,JSON.stringify(allChamp),() => {
+        console.log("finished")
+    })
 }

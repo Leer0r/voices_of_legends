@@ -46,7 +46,7 @@ class pixelGuess {
         this.difficulty = document.querySelector(".middle .gameInfo .difficulty .value").innerText;
     }
     lauchGame() {
-        getAllChampSkins()
+        getNbChampSkins(this.nbChampToGuess)
             .then(async (result) => {
             this.allChampSkins = result;
             console.log(this.allChampSkins);

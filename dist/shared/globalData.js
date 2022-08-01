@@ -1,6 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllChampionSkins = void 0;
+const fs_1 = __importDefault(require("fs"));
+const axios_1 = __importDefault(require("axios"));
 async function getAllChampSkins() {
     let allChampSkins = [];
     const champId = await getAllChampId();
@@ -16,8 +21,8 @@ async function getChampSkins(champId) {
         skins: []
     };
     const fetchLocation = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/fr_fr/v1/champions/${champId}.json`;
-    const response = await fetch(fetchLocation);
-    const result = await response.json();
+    const response = await axios_1.default.get(fetchLocation);
+    const result = response.data;
     champSkins = {
         name: result["name"].toLowerCase(),
         skins: [],
@@ -59,8 +64,8 @@ function getRandomArray(max, length) {
 async function getAllChampId() {
     const returnArray = [];
     const fetchLocation = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json`;
-    const response = await fetch(fetchLocation);
-    const res = await response.json();
+    const response = await axios_1.default.get(fetchLocation);
+    const res = response.data;
     const resArray = res;
     for (let i = 1; i < resArray.length; i++) {
         returnArray.push(resArray[i]["id"]);
@@ -68,7 +73,10 @@ async function getAllChampId() {
     return returnArray;
 }
 async function getAllChampionSkins() {
-    const storageLocation = `${process.cwd()}/ressources/gameData`;
-    const championArray = await getAllChampSkins();
+    const storageLocation = `${process.cwd()}/ressources/gameData/gameData.json`;
+    const allChamp = await getAllChampSkins();
+    fs_1.default.writeFile(storageLocation, JSON.stringify(allChamp), () => {
+        console.log("finished");
+    });
 }
 exports.getAllChampionSkins = getAllChampionSkins;

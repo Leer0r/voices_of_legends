@@ -25,6 +25,15 @@ async function getAllChampSkins() {
     }
     return allChampSkins;
 }
+async function getNbChampSkins(nb) {
+    let allChampSkins = [];
+    const champId = await getAllChampId();
+    const randArray = getRandomArray(champId.length, nb);
+    for (let i = 1; i < randArray.length; i++) {
+        allChampSkins.push(await getChampSkins(champId[randArray[i]]));
+    }
+    return allChampSkins;
+}
 async function getChampSkins(champId) {
     let champSkins = {
         id: 0,
@@ -62,6 +71,7 @@ function getRandomInt(max) {
 }
 function getRandomArray(max, length) {
     const rangeArray = [...Array(max).keys()].map(x => x + 1);
+    console.log(rangeArray);
     const randArray = [];
     let randNumber;
     for (let i = 0; i < length; i++) {

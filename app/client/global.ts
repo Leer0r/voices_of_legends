@@ -42,6 +42,16 @@ async function getAllChampSkins(): Promise<Array<champSkins>>{
     return allChampSkins;
 }
 
+async function getNbChampSkins(nb:number):Promise<Array<champSkins>> {
+    let allChampSkins:Array<champSkins> = [];
+    const champId:Array<number> = await getAllChampId()
+    const randArray:Array<number> = getRandomArray(champId.length,nb);
+    for(let i = 1; i < randArray.length; i++){
+        allChampSkins.push(await getChampSkins(champId[randArray[i]]));
+    }
+    return allChampSkins;
+}
+
 async function getChampSkins(champId:number): Promise<champSkins>{
     let champSkins: champSkins = {
         id:0,
@@ -83,6 +93,7 @@ function getRandomInt(max:number) {
 
 function getRandomArray(max:number,length:number):Array<number> {
     const rangeArray = [...Array(max).keys()].map(x => x + 1);
+    console.log(rangeArray)
     const randArray:Array<number> = []
     let randNumber;
     for(let i = 0; i < length; i++){

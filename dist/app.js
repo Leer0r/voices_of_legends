@@ -11,7 +11,6 @@ const quizRouter_1 = __importDefault(require("./router/quiz/quizRouter"));
 const resultRouter_1 = __importDefault(require("./router/result/resultRouter"));
 const pixelGuessRouter_1 = __importDefault(require("./router/pixelGuess/pixelGuessRouter"));
 const path_1 = __importDefault(require("path"));
-const globalData_1 = require("./shared/globalData");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
@@ -33,4 +32,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
-(0, globalData_1.getAllChampionSkins)();
+//getAllChampionSkins()
