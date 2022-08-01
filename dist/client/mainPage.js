@@ -36,17 +36,17 @@ const gameDescriptor = {
     }
 };
 class mainPage {
+    currentGame = "quiz";
+    HTMLElementSelector = {
+        "quiz": document.querySelector(".leftContainer .classicGame"),
+        "pixelGuess": document.querySelector(".leftContainer .pixelGuess")
+    };
+    HTMLElementMainClass = {
+        "title": document.querySelector(".middle .title"),
+        "selectDifficulty": document.querySelector(".middle .levelParameter .difficulty"),
+        "levelDesc": document.querySelector(".middle .levelParameter .levelDesc")
+    };
     constructor() {
-        this.currentGame = "quiz";
-        this.HTMLElementSelector = {
-            "quiz": document.querySelector(".leftContainer .classicGame"),
-            "pixelGuess": document.querySelector(".leftContainer .pixelGuess")
-        };
-        this.HTMLElementMainClass = {
-            "title": document.querySelector(".middle .title"),
-            "selectDifficulty": document.querySelector(".middle .levelParameter .difficulty"),
-            "levelDesc": document.querySelector(".middle .levelParameter .levelDesc")
-        };
         this.setEventListener();
     }
     setLevelParameterEventListener() {
@@ -73,8 +73,7 @@ class mainPage {
         popupContainer.style.display = "flex";
     }
     setHelpEventListener() {
-        var _a;
-        (_a = document.querySelector(".mainContainer .middle .help .helpIcon")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        document.querySelector(".mainContainer .middle .help .helpIcon")?.addEventListener("click", () => {
             this.displayPopup(gameDescriptor[this.currentGame]);
         });
     }
@@ -94,11 +93,10 @@ class mainPage {
         this.HTMLElementMainClass.levelDesc.innerHTML = gameDescriptor[this.currentGame].difficultyDesc.levelParameterDesc[0];
     }
     setGameSelectListener() {
-        var _a, _b;
-        (_a = document.querySelector(".leftContainer .classicGame")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        document.querySelector(".leftContainer .classicGame")?.addEventListener("click", () => {
             this.setGameMode("quiz");
         });
-        (_b = document.querySelector(".leftContainer .pixelGuess")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
+        document.querySelector(".leftContainer .pixelGuess")?.addEventListener("click", () => {
             this.setGameMode("pixelGuess");
         });
     }

@@ -1,15 +1,19 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var exports = {};
 class quizManager {
+    champDivList;
+    championPannel;
+    _currentChampSelected;
+    userGuess;
+    nbChamToGuess;
+    currentTime;
+    dataPath;
+    championArray;
+    gameStarted;
+    nbChamRemining;
+    timer;
+    champHint;
+    difficulty;
     constructor() {
         this.championArray = {
             id: [],
@@ -75,7 +79,6 @@ class quizManager {
         }
     }
     createChampDivs(nb) {
-        var _a;
         for (let i = 0; i < nb; i++) {
             let champDiv = document.createElement("div");
             champDiv.classList.add("championCase");
@@ -96,7 +99,7 @@ class quizManager {
                 championHint: this.championArray.hint[i]
             };
             this.champDivList.push(champCase);
-            (_a = this.championPannel) === null || _a === void 0 ? void 0 : _a.appendChild(champDiv);
+            this.championPannel?.appendChild(champDiv);
         }
     }
     suffle() {
@@ -121,8 +124,8 @@ class quizManager {
     getChampInfo() {
         const url = "http://ddragon.leagueoflegends.com/cdn/12.9.1/data/fr_FR/champion.json";
         fetch(url)
-            .then((res) => __awaiter(this, void 0, void 0, function* () {
-            const response = yield res.json();
+            .then(async (res) => {
+            const response = await res.json();
             Object.keys(response["data"]).forEach((key, index) => {
                 this.championArray.name.push(response["data"][key]["name"].toLowerCase());
                 this.championArray.id.push(response["data"][key]["key"]);
@@ -133,7 +136,7 @@ class quizManager {
             this.gameStarted = true;
             this.selectChampion(0);
             this.lauchTimer();
-        }));
+        });
     }
     displayChampHint() {
         this.champHint.innerText = this.champDivList[this.currentChampSelected].championHint;
@@ -160,8 +163,7 @@ class quizManager {
         });
     }
     getUserGuess() {
-        var _a;
-        this.userGuess = (_a = document.querySelector(".championInput")) === null || _a === void 0 ? void 0 : _a.value;
+        this.userGuess = document.querySelector(".championInput")?.value;
     }
     playChampSound() {
         this.champDivList[this._currentChampSelected].championSound.play();
@@ -171,18 +173,16 @@ class quizManager {
         this.champDivList[this._currentChampSelected].championSound.currentTime = 0;
     }
     unselectChamp() {
-        var _a;
         if (!this.gameStarted) {
             return;
         }
-        (_a = this.champDivList[this._currentChampSelected].championDiv) === null || _a === void 0 ? void 0 : _a.classList.remove("selected");
+        this.champDivList[this._currentChampSelected].championDiv?.classList.remove("selected");
     }
     selectChamp() {
-        var _a;
         if (!this.gameStarted) {
             return;
         }
-        (_a = this.champDivList[this.currentChampSelected].championDiv) === null || _a === void 0 ? void 0 : _a.classList.add("selected");
+        this.champDivList[this.currentChampSelected].championDiv?.classList.add("selected");
     }
     revealChamp() {
         const champReveal = this.champDivList[this.currentChampSelected].championDiv;
@@ -190,8 +190,7 @@ class quizManager {
         champReveal.classList.remove("anonymous");
     }
     checkResponse() {
-        var _a;
-        if (((_a = this.userGuess) === null || _a === void 0 ? void 0 : _a.toLowerCase()) == this.champDivList[this.currentChampSelected].response) {
+        if (this.userGuess?.toLowerCase() == this.champDivList[this.currentChampSelected].response) {
             this.revealChamp();
             this.nbChamRemining--;
             this.checkGameFinish();
@@ -215,21 +214,20 @@ class quizManager {
     }
     setUserGuess() {
         const championInput = document.querySelector(".championInput");
-        championInput === null || championInput === void 0 ? void 0 : championInput.addEventListener("input", (e) => {
+        championInput?.addEventListener("input", (e) => {
             this.getUserGuess();
         });
-        championInput === null || championInput === void 0 ? void 0 : championInput.addEventListener("keyup", (ev) => {
+        championInput?.addEventListener("keyup", (ev) => {
             if (ev.key === 'Enter' || ev.keyCode === 13) {
                 this.checkResponse();
             }
         });
     }
     setArrowEventListener() {
-        var _a, _b;
-        (_a = document.querySelector(".goNext")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
+        document.querySelector(".goNext")?.addEventListener("click", (e) => {
             this.goNext();
         });
-        (_b = document.querySelector(".goBack")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", (e) => {
+        document.querySelector(".goBack")?.addEventListener("click", (e) => {
             this.goBack();
         });
         document.body.addEventListener("keyup", (ev) => {
@@ -251,20 +249,17 @@ class quizManager {
         });
     }
     setRedoSongEventListener() {
-        var _a;
-        (_a = document.querySelector(".relauch")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        document.querySelector(".relauch")?.addEventListener("click", () => {
             this.playChampSound();
         });
     }
-    lauchTimer() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!this.gameStarted) {
-                return;
-            }
-            this.showTime();
-            yield new Promise(r => setTimeout(r, 1000));
-            this.lauchTimer();
-        });
+    async lauchTimer() {
+        if (!this.gameStarted) {
+            return;
+        }
+        this.showTime();
+        await new Promise(r => setTimeout(r, 1000));
+        this.lauchTimer();
     }
     showTime() {
         if (this.timer.sec >= 60) {
@@ -294,8 +289,7 @@ class quizManager {
         this.selectChampion(nextPos);
     }
     isAnonymous(champPos) {
-        var _a;
-        return (_a = this.champDivList[champPos].championDiv) === null || _a === void 0 ? void 0 : _a.classList.contains("anonymous");
+        return this.champDivList[champPos].championDiv?.classList.contains("anonymous");
     }
     goBack() {
         if (!this.gameStarted) {

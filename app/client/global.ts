@@ -1,3 +1,6 @@
+import { response } from "express";
+import { ReadStream } from "fs";
+
 interface skin {
     id:number
     splashPath:string,
@@ -35,8 +38,9 @@ function sleepFor(sleepDuration:number){
 
 async function getAllChampSkins(): Promise<Array<champSkins>>{
     let allChampSkins:Array<champSkins> = []
-    for(let i = 1; i < 10; i++){
-        allChampSkins.push(await getChampSkins(i));
+    const champId:Array<number> = await getAllChampId()
+    for(let i = 1; i < champId.length; i++){
+        allChampSkins.push(await getChampSkins(champId[i]));
     }
     return allChampSkins;
 }
@@ -91,4 +95,16 @@ function getRandomArray(max:number,length:number):Array<number> {
     }
     console.log(randArray)
     return randArray
+}
+
+async function getAllChampId():Promise<Array<number>>{
+    const returnArray:Array<number> = []
+    const fetchLocation = `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json`
+    const response = await fetch(fetchLocation)
+    const res = await response.json()
+    const resArray:Array<any> = <Array<any>> res;
+    for(let i:number = 1; i < resArray.length; i++){
+        returnArray.push(resArray[i]["id"])
+    }
+    return returnArray
 }

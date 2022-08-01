@@ -1,20 +1,12 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 class pixelGuess {
+    difficulty = "";
+    guessImage = document.getElementById("guessImage");
+    allChampSkins = [];
+    selectedImages = [];
+    nbChampToGuess = 10;
+    championIdArray = [];
     constructor() {
-        this.difficulty = "";
-        this.guessImage = document.getElementById("guessImage");
-        this.allChampSkins = [];
-        this.selectedImages = [];
-        this.nbChampToGuess = 10;
         this.lauchGame();
     }
     pixelizeIMG(sample_size) {
@@ -22,7 +14,6 @@ class pixelGuess {
         let img1 = new Image();
         img1.crossOrigin = "unknown";
         img1.onload = function () {
-            var _a;
             const w = img1.width;
             const h = img1.height;
             c.width = w;
@@ -46,7 +37,7 @@ class pixelGuess {
             img2.src = c.toDataURL("image/jpeg");
             img2.width = 800;
             img2.id = "canvasIMG";
-            (_a = document.querySelector(".champToGuess")) === null || _a === void 0 ? void 0 : _a.appendChild(img2);
+            document.querySelector(".champToGuess")?.appendChild(img2);
         };
         const currentImage = document.getElementById("guessImage");
         img1.src = currentImage.src;
@@ -56,16 +47,17 @@ class pixelGuess {
     }
     lauchGame() {
         getAllChampSkins()
-            .then((result) => {
+            .then(async (result) => {
             this.allChampSkins = result;
             console.log(this.allChampSkins);
+            this.championIdArray = await getAllChampId();
             this.getDifficulty();
             this.chooseImages();
             this.pixelGame();
         });
     }
     chooseImages() {
-        const randArray = getRandomArray(50, this.nbChampToGuess);
+        const randArray = getRandomArray(this.championIdArray.length, this.nbChampToGuess);
         for (let i = 0; i < this.nbChampToGuess; i++) {
             this.selectedImages[i] = {
                 champSkins: {
@@ -76,7 +68,7 @@ class pixelGuess {
                 guessName: "",
                 skinNumber: 0
             };
-            let champion = getRandomInt(this.allChampSkins.length);
+            let champion = randArray[i];
             let championSkin;
             this.selectedImages[i].champSkins = this.allChampSkins[champion];
             if (this.difficulty == "facile") {
@@ -95,7 +87,7 @@ class pixelGuess {
             this.selectedImages[i].skinNumber = this.allChampSkins[champion].skins[championSkin].id;
             console.log(this.selectedImages[i]);
         }
-        //this.setGuessImage(this.getSkinPath(this.selectedImage.champSkins.id,this.selectedImage.skinNumber))
+        this.setGuessImage(this.getSkinPath(this.selectedImages[0].champSkins.id, this.selectedImages[0].skinNumber));
     }
     setGuessImage(imgSrc) {
         this.guessImage.src = imgSrc;
@@ -103,16 +95,14 @@ class pixelGuess {
     getSkinPath(champId, skinsId) {
         return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/${champId}/${skinsId}.jpg`;
     }
-    pixelGame() {
-        return __awaiter(this, void 0, void 0, function* () {
-            let delay = 1000;
-            for (let x = 60; x >= 1; x -= 5 - (x < 7 ? 4 : 0)) {
-                setTimeout(() => {
-                    this.pixelizeIMG(x);
-                }, delay);
-                delay += 1000;
-            }
-        });
+    async pixelGame() {
+        let delay = 1000;
+        for (let x = 60; x >= 1; x -= 5 - (x < 7 ? 4 : 0)) {
+            setTimeout(() => {
+                this.pixelizeIMG(x);
+            }, delay);
+            delay += 1000;
+        }
     }
 }
 const _pixelGuess = new pixelGuess();
