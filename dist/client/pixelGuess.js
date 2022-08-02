@@ -49,7 +49,6 @@ class pixelGuess {
         getNbChampSkins(this.nbChampToGuess)
             .then(async (result) => {
             this.allChampSkins = result;
-            console.log(this.allChampSkins);
             this.championIdArray = await getAllChampId();
             this.getDifficulty();
             this.chooseImages();
@@ -57,7 +56,6 @@ class pixelGuess {
         });
     }
     chooseImages() {
-        const randArray = getRandomArray(this.championIdArray.length, this.nbChampToGuess);
         for (let i = 0; i < this.nbChampToGuess; i++) {
             this.selectedImages[i] = {
                 champSkins: {
@@ -68,7 +66,7 @@ class pixelGuess {
                 guessName: "",
                 skinNumber: 0
             };
-            let champion = randArray[i];
+            let champion = i;
             let championSkin;
             this.selectedImages[i].champSkins = this.allChampSkins[champion];
             if (this.difficulty == "facile") {
@@ -81,11 +79,9 @@ class pixelGuess {
             }
             else {
                 championSkin = getRandomInt(this.selectedImages[i].champSkins.skins.length - 2) + 1;
-                console.log(championSkin);
                 this.selectedImages[i].guessName = this.allChampSkins[champion].skins[championSkin].name;
             }
             this.selectedImages[i].skinNumber = this.allChampSkins[champion].skins[championSkin].id;
-            console.log(this.selectedImages[i]);
         }
         this.setGuessImage(this.getSkinPath(this.selectedImages[0].champSkins.id, this.selectedImages[0].skinNumber));
     }
