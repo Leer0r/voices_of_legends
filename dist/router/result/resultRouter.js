@@ -34,6 +34,10 @@ router.use(body_parser_1.default.urlencoded({ extended: true }));
 router.use(body_parser_1.default.json());
 router.post("/", async (req, res, next) => {
     console.log(req.body);
-    res.render("result/index.ejs");
+    res.render("result/index.ejs", { userMin: req.body.userMin, userSec: req.body.userSec });
+});
+router.get("/", async (req, res, next) => {
+    console.log(req.body);
+    res.render("result/index.ejs", { userMin: "2", userSec: "10" });
 });
 exports.default = router;

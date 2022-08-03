@@ -61,6 +61,7 @@ body .popupContainer .popup .title {
 html .popupContainer .popup .content,
 body .popupContainer .popup .content {
   flex: 3;
+  width: 90%;
 }
 html .popupContainer .popup .quitButton,
 body .popupContainer .popup .quitButton {

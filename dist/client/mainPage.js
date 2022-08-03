@@ -20,7 +20,7 @@ const gameDescriptor = {
     "pixelGuess": {
         levelTitle: "Pixel Guess",
         levelName: "Mode de jeu par image",
-        levelDesc: "Une image d'un champion se dépixélise de plus en plus, à toi de deviner le plus rapidement possible",
+        levelDesc: "Une image d'un champion se dépixélise de plus en plus, à toi de deviner son nom le plus rapidement possible. Ce jeu comporte encore des bugs lié à la dépixélisation",
         difficultyDesc: {
             levelParmeterName: [
                 "Facile",

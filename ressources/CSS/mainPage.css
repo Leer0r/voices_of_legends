@@ -1,6 +1,7 @@
 @charset "UTF-8";
 html,
 body {
+  height: 100%;
   -moz-user-select: none;
   /* Firefox */
   -webkit-user-select: none;
@@ -60,6 +61,7 @@ body .popupContainer .popup .title {
 html .popupContainer .popup .content,
 body .popupContainer .popup .content {
   flex: 3;
+  width: 90%;
 }
 html .popupContainer .popup .quitButton,
 body .popupContainer .popup .quitButton {
@@ -208,6 +210,7 @@ body .mainContainer .middle .userBanner .userBackBanner {
   background-repeat: no-repeat;
   /* Do not repeat the image */
   background-size: cover;
+  /* https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/regalia/banners/backgrounds/*/
   background-image: url("https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/current-player-banner.png");
 }
 html .mainContainer .middle .userBanner .userLevelRing,

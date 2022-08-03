@@ -9,7 +9,12 @@ router.use(bodyParser.json());
 
 router.post("/", async (req:Request, res:Response, next:NextFunction) =>{
     console.log(req.body);
-    res.render("result/index.ejs")
+    res.render("result/index.ejs",{userMin:req.body.userMin,userSec:req.body.userSec})
+})
+
+router.get("/", async (req:Request, res:Response, next:NextFunction) =>{
+    console.log(req.body);
+    res.render("result/index.ejs",{userMin:"2",userSec:"10"});
 })
 
 export default router;

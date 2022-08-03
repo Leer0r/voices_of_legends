@@ -2,6 +2,18 @@
 <html lang="en">
     <%- include("../global/header.ejs", {cssPath:"/ressources/css/resultStyle.css"}); %>
 <body>
-    
+    <div class="background">
+    </div>
+    <div class="result">
+        <div class="userResult">
+            Bien joué, tu as fini le jeu en <%=userMin %> minutes et <%=userSec %> secondes.  
+        </div>
+        <div class="addDetails">
+            (Flemme de faire un truc plus compliqué pour l'instant)
+        </div>
+        <div class="goback">
+            <a href="/">Retour au menu</a>
+        </div>
+    </div>
 </body>
 </html>
