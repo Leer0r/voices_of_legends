@@ -206,8 +206,16 @@ class quizManager {
     }
     GoToResult() {
         const userTime = this.getTime();
-        document.cookie = `userMin=${userTime[0]}; userSec=${userTime[0]}; Secure`;
-        window.location.href = "http://localhost:3000/result";
+        changePage("/result", "post", [
+            {
+                title: "userMin",
+                value: `${userTime[0]}`
+            },
+            {
+                title: "userSec",
+                value: `${userTime[1]}`
+            }
+        ]);
     }
     isGameFinish() {
         return this.nbChamRemining <= 0;

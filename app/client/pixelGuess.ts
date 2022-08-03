@@ -226,8 +226,26 @@ class pixelGuess {
     private checkGameFinish(){
         if(this.isGameFinish()){
             this.gameStarted = false
-            //this.GoToResult()
+            this.goToResult()
         }
+    }
+
+    private getTime(){
+        return [this.timer.min,this.timer.sec]
+    }
+
+    private goToResult(){
+        const userTime: number[] = this.getTime()
+        changePage("/result","post",[
+            {
+                title:"userMin",
+                value: `${userTime[0]}`
+            },
+            {
+                title:"userSec",
+                value: `${userTime[1]}`
+            }
+        ])
     }
 
     private goodResponse(){

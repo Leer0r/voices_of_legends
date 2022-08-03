@@ -256,8 +256,16 @@ class quizManager {
 
     private GoToResult(){
         const userTime: number[] = this.getTime()
-        document.cookie = `userMin=${userTime[0]}; userSec=${userTime[0]}; Secure`
-        window.location.href = "http://localhost:3000/result"
+        changePage("/result","post",[
+            {
+                title:"userMin",
+                value: `${userTime[0]}`
+            },
+            {
+                title:"userSec",
+                value: `${userTime[1]}`
+            }
+        ])
     }
 
     private isGameFinish(){

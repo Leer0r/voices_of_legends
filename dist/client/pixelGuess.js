@@ -186,8 +186,24 @@ class pixelGuess {
     checkGameFinish() {
         if (this.isGameFinish()) {
             this.gameStarted = false;
-            //this.GoToResult()
+            this.goToResult();
         }
+    }
+    getTime() {
+        return [this.timer.min, this.timer.sec];
+    }
+    goToResult() {
+        const userTime = this.getTime();
+        changePage("/result", "post", [
+            {
+                title: "userMin",
+                value: `${userTime[0]}`
+            },
+            {
+                title: "userSec",
+                value: `${userTime[1]}`
+            }
+        ]);
     }
     goodResponse() {
         this.selectedImages[this.currentChampSelected].indicatorLink.classList.add("complete");
