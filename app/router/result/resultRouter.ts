@@ -14,7 +14,7 @@ router.post("/", async (req:Request, res:Response, next:NextFunction) =>{
 
 router.get("/", async (req:Request, res:Response, next:NextFunction) =>{
     console.log(req.body);
-    res.render("result/index.ejs",{userMin:"2",userSec:"10"});
+    res.render("result/index.ejs",{userMin:req.query.userMin,userSec:req.query.userSec});
 })
 
 export default router;
