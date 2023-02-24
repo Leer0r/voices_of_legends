@@ -122,7 +122,7 @@ class quizManager {
         }
     }
     getChampInfo() {
-        const url = "http://ddragon.leagueoflegends.com/cdn/12.9.1/data/fr_FR/champion.json";
+        const url = "https://ddragon.leagueoflegends.com/cdn/12.9.1/data/fr_FR/champion.json";
         fetch(url)
             .then(async (res) => {
             const response = await res.json();

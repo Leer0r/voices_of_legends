@@ -38,6 +38,6 @@ router.post("/", async (req, res, next) => {
 });
 router.get("/", async (req, res, next) => {
     console.log(req.body);
-    res.render("result/index.ejs", { userMin: "2", userSec: "10" });
+    res.render("result/index.ejs", { userMin: req.query.userMin, userSec: req.query.userSec });
 });
 exports.default = router;
